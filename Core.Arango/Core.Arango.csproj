@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Company>Corona Bytes</Company>
-    <Authors>Andreas Dominik Jung</Authors>
-    <PackageId>Core.Arango</PackageId>
-    <PackageTags>arangodb driver</PackageTags>
+    <Authors>Palash Karmaker, Andreas Dominik Jung</Authors>
+    <PackageId>Core.Arango.Net</PackageId>
+    <PackageTags>arangodb driver for .Net 8</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Description>.NET driver for ArangoDB with support for database per tenant deployments</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <Version>3.0.0</Version>
-    <Copyright>Andreas Dominik Jung</Copyright>
+    <Version>1.0.0</Version>
+    <Copyright>Palash Karmaker, Andreas Dominik Jung</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIcon>ArangoDB.png</PackageIcon>
     <PackageIconUrl />
