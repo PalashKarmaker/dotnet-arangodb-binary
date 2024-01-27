@@ -14,10 +14,7 @@ namespace Core.Arango.Tests.Core
     {
         public IArangoContext Arango { get; protected set; }
 
-        public virtual Task InitializeAsync()
-        {
-            return Task.CompletedTask;
-        }
+        public virtual Task InitializeAsync() => Task.CompletedTask;
 
         public async Task DisposeAsync()
         {

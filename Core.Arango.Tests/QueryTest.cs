@@ -10,15 +10,8 @@ using Xunit.Abstractions;
 
 namespace Core.Arango.Tests
 {
-    public class QueryTest : TestBase
+    public class QueryTest(ITestOutputHelper output) : TestBase
     {
-        private readonly ITestOutputHelper _output;
-
-        public QueryTest(ITestOutputHelper output)
-        {
-            _output = output;
-        }
-
         [Theory]
         [ClassData(typeof(PascalCaseData))]
         public async Task NullParameter(string serializer)
@@ -164,7 +157,7 @@ namespace Core.Arango.Tests
             var res = await Arango.Query.ExplainAsync("test",
                 $"FOR e IN test FILTER e.Value IN {select} RETURN e");
 
-            _output.WriteLine(JsonConvert.SerializeObject(res, Formatting.Indented));
+            output.WriteLine(JsonConvert.SerializeObject(res, Formatting.Indented));
         }
 
         [Theory]
@@ -177,7 +170,7 @@ namespace Core.Arango.Tests
             var res = await Arango.Query.ParseAsync("test",
                 "FOR e IN test FILTER e.Value IN [1,2,3] RETURN e");
 
-            _output.WriteLine(JsonConvert.SerializeObject(res, Formatting.Indented));
+            output.WriteLine(JsonConvert.SerializeObject(res, Formatting.Indented));
         }
     }
 }

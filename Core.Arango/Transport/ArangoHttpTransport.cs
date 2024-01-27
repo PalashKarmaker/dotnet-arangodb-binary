@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -17,65 +18,65 @@ namespace Core.Arango.Transport
     /// <summary>
     ///     Arango HTTP 1.1/2.0 Transport Implementation
     /// </summary>
-    public class ArangoHttpTransport : IArangoTransport
+    /// <remarks>
+    ///     Arango HTTP 1.1/2.0 Transport Implementation
+    /// </remarks>
+    public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
     {
-        private static readonly HttpClient DefaultHttpClient = new();
-        private readonly IArangoConfiguration _configuration;
-        private readonly HttpClient _httpClient;
+        private static HttpClient DefaultHttpClient => new();
         private string _auth;
         private DateTime _authValidUntil = DateTime.MinValue;
-
         /// <summary>
-        ///     Arango HTTP 1.1/2.0 Transport Implementation
+        /// When using Basic auth, call this method to set the username and password
+        /// used in requests to ArangoDB.
         /// </summary>
-        public ArangoHttpTransport(IArangoConfiguration configuration)
+        /// <param name="client"></param>
+        public void SetBasicAuth(HttpClient client)
         {
-            _configuration = configuration;
-            _httpClient = configuration.HttpClient ?? DefaultHttpClient;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Basic",
+                Convert.ToBase64String(
+                    Encoding.ASCII.GetBytes($"{configuration.User}:{configuration.Password}")));
         }
-
         /// <inheritdoc />
         public async Task<T> SendAsync<T>(HttpMethod m, string url, object body = null,
             string transaction = null, bool throwOnError = true, bool auth = true,
             IDictionary<string, string> headers = null,
             CancellationToken cancellationToken = default)
         {
-            await Authenticate(auth, cancellationToken).ConfigureAwait(false);
+            //await Authenticate(auth, cancellationToken).ConfigureAwait(false);
 
-            var msg = new HttpRequestMessage(m, _configuration.Server + url);
+            using var msg = new HttpRequestMessage(m, configuration.Server + url);
             ApplyHeaders(transaction, auth, msg, headers);
 
             if (body != null)
             {
-                var json = _configuration.Serializer.Serialize(body);
-                msg.Content = new StringContent(json, Encoding.UTF8,
-                    "application/json");
+                var json = configuration.Serializer.Serialize(body);
+                msg.Content = new ByteArrayContent(Encoding.UTF8.GetBytes(json));
+                //msg.Content = new StringContent(json, Encoding.UTF8, "application/json");
             }
             else
-            {
                 msg.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-            }
-
-            var res = await _httpClient.SendAsync(msg, cancellationToken).ConfigureAwait(false);
+            using var httpClient = DefaultHttpClient;
+            SetBasicAuth(httpClient);
+            using var res = await httpClient.SendAsync(msg, cancellationToken).ConfigureAwait(false);
 
             if (!res.IsSuccessStatusCode)
                 if (throwOnError)
                 {
-                    var errorContent = await res.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var error = _configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
+                    var errorContent = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    var error = configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
                     throw new ArangoException(errorContent, error.ErrorMessage,
                         (HttpStatusCode) error.Code, (ArangoErrorCode) error.ErrorNum);
                 }
                 else
-                {
                     return default;
-                }
 
-            var content = await res.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
             if (res.Headers.Contains("X-Arango-Error-Codes"))
             {
-                var errors = _configuration.Serializer.Deserialize<IEnumerable<ErrorResponse>>(content)
+                var errors = configuration.Serializer.Deserialize<IEnumerable<ErrorResponse>>(content)
                     .Select(error => new ArangoError(error.ErrorMessage, (ArangoErrorCode) error.ErrorNum));
                 throw new ArangoException(content, errors);
             }
@@ -83,7 +84,7 @@ namespace Core.Arango.Transport
             if (content == "{}" || string.IsNullOrWhiteSpace(content))
                 return default;
 
-            return _configuration.Serializer.Deserialize<T>(content);
+            return configuration.Serializer.Deserialize<T>(content);
         }
 
         /// <inheritdoc />
@@ -92,22 +93,22 @@ namespace Core.Arango.Transport
             bool throwOnError = true, bool auth = true, IDictionary<string, string> headers = null,
             CancellationToken cancellationToken = default)
         {
-            await Authenticate(auth, cancellationToken);
+            //await Authenticate(auth, cancellationToken);
 
-            var msg = new HttpRequestMessage(m, _configuration.Server + url);
+            var msg = new HttpRequestMessage(m, configuration.Server + url);
             ApplyHeaders(transaction, auth, msg, headers);
             msg.Content = body;
+            using var httpClient = DefaultHttpClient;
+            SetBasicAuth(httpClient);
+            var res = await httpClient.SendAsync(msg, cancellationToken);
 
-            var res = await _httpClient.SendAsync(msg, cancellationToken);
-
-            if (!res.IsSuccessStatusCode)
-                if (throwOnError)
-                {
-                    var errorContent = await res.Content.ReadAsStringAsync();
-                    var error = _configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
-                    throw new ArangoException(errorContent, error.ErrorMessage,
-                        (HttpStatusCode) error.Code, (ArangoErrorCode) error.ErrorNum);
-                }
+            if (!res.IsSuccessStatusCode && throwOnError)
+            {
+                var errorContent = await res.Content.ReadAsStringAsync();
+                var error = configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
+                throw new ArangoException(errorContent, error.ErrorMessage,
+                    (HttpStatusCode)error.Code, (ArangoErrorCode)error.ErrorNum);
+            }
 
             return res.Content;
         }
@@ -118,18 +119,22 @@ namespace Core.Arango.Transport
             IDictionary<string, string> headers = null,
             CancellationToken cancellationToken = default)
         {
-            await Authenticate(auth, cancellationToken).ConfigureAwait(false);
+            //await Authenticate(auth, cancellationToken).ConfigureAwait(false);
 
-            var msg = new HttpRequestMessage(m, _configuration.Server + url);
+            using var msg = new HttpRequestMessage(m, configuration.Server + url);
             ApplyHeaders(transaction, auth, msg, headers);
 
             if (body != null)
-                msg.Content = new StringContent(_configuration.Serializer.Serialize(body), Encoding.UTF8,
-                    "application/json");
+            {
+                var json = configuration.Serializer.Serialize(body);
+                msg.Content = new ByteArrayContent(Encoding.UTF8.GetBytes(json));
+                //msg.Content = new StringContent(configuration.Serializer.Serialize(body), Encoding.UTF8, "application/json");
+            }
             else
                 msg.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-
-            var res = await _httpClient.SendAsync(msg, cancellationToken).ConfigureAwait(false);
+            using var httpClient = DefaultHttpClient;
+            SetBasicAuth(httpClient);
+            using var res = await httpClient.SendAsync(msg, cancellationToken).ConfigureAwait(false);
 
             if (!res.IsSuccessStatusCode)
                 if (throwOnError)
@@ -141,7 +146,7 @@ namespace Core.Arango.Transport
             if (content == "{}" || string.IsNullOrWhiteSpace(content))
                 return default;
 
-            return _configuration.Serializer.Deserialize(content, type);
+            return configuration.Serializer.Deserialize(content, type);
         }
 
         private void ApplyHeaders(string transaction, bool auth, HttpRequestMessage msg,
@@ -155,7 +160,7 @@ namespace Core.Arango.Transport
             if (transaction != null)
                 msg.Headers.Add("x-arango-trx-id", transaction);
 
-            if (_configuration.AllowDirtyRead)
+            if (configuration.AllowDirtyRead)
                 msg.Headers.Add("x-arango-allow-dirty-read", "true");
 
             if (headers != null)
@@ -165,7 +170,7 @@ namespace Core.Arango.Transport
 
         private async Task Authenticate(bool auth, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(_configuration.User))
+            if (string.IsNullOrWhiteSpace(configuration.User))
                 return;
 
             if (auth && (_auth == null || _authValidUntil < DateTime.UtcNow))
@@ -174,8 +179,8 @@ namespace Core.Arango.Transport
                     "/_open/auth",
                     new AuthRequest
                     {
-                        Username = _configuration.User,
-                        Password = _configuration.Password ?? string.Empty
+                        Username = configuration.User,
+                        Password = configuration.Password ?? string.Empty
                     }, auth: false, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 var jwt = authResponse.Jwt;

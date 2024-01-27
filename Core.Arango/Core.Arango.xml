@@ -40,9 +40,6 @@
         <member name="P:Core.Arango.ArangoConfiguration.QueryProfile">
             <inheritdoc />
         </member>
-        <member name="P:Core.Arango.ArangoConfiguration.HttpClient">
-            <inheritdoc />
-        </member>
         <member name="P:Core.Arango.ArangoConfiguration.AllowDirtyRead">
             <inheritdoc />
         </member>
@@ -1452,11 +1449,6 @@
         <member name="P:Core.Arango.IArangoConfiguration.QueryProfile">
             <summary>
                 Callback for each query execute with stats
-            </summary>
-        </member>
-        <member name="P:Core.Arango.IArangoConfiguration.HttpClient">
-            <summary>
-                Override HttpClient
             </summary>
         </member>
         <member name="P:Core.Arango.IArangoConfiguration.AllowDirtyRead">
@@ -10234,6 +10226,15 @@
         <member name="M:Core.Arango.Serialization.Json.ArangoJsonSerializer.Serialize(System.Object)">
             <inheritdoc />
         </member>
+        <member name="M:Core.Arango.Serialization.Json.ArangoJsonSerializer.SerializeAsync(System.Object,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Serialization.Json.ArangoJsonSerializer.DeserializeAsync``1(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Serialization.Json.ArangoJsonSerializer.DeserializeAsync``1(System.IO.Stream,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Core.Arango.Serialization.Json.ArangoJsonSerializer.Deserialize``1(System.String)">
             <inheritdoc />
         </member>
@@ -10347,15 +10348,37 @@
         <member name="M:Core.Arango.Serialization.Newtonsoft.ArangoNewtonsoftSerializer.Deserialize(System.String,System.Type)">
             <inheritdoc />
         </member>
+        <member name="M:Core.Arango.Serialization.Newtonsoft.ArangoNewtonsoftSerializer.SerializeAsync(System.Object,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Serialization.Newtonsoft.ArangoNewtonsoftSerializer.DeserializeAsync``1(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Serialization.Newtonsoft.ArangoNewtonsoftSerializer.DeserializeAsync``1(System.IO.Stream,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Core.Arango.Transport.ArangoHttpTransport">
             <summary>
                 Arango HTTP 1.1/2.0 Transport Implementation
             </summary>
+            <remarks>
+                Arango HTTP 1.1/2.0 Transport Implementation
+            </remarks>
         </member>
         <member name="M:Core.Arango.Transport.ArangoHttpTransport.#ctor(Core.Arango.IArangoConfiguration)">
             <summary>
                 Arango HTTP 1.1/2.0 Transport Implementation
             </summary>
+            <remarks>
+                Arango HTTP 1.1/2.0 Transport Implementation
+            </remarks>
+        </member>
+        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SetBasicAuth(System.Net.Http.HttpClient)">
+            <summary>
+            When using Basic auth, call this method to set the username and password
+            used in requests to ArangoDB.
+            </summary>
+            <param name="client"></param>
         </member>
         <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
             <inheritdoc />

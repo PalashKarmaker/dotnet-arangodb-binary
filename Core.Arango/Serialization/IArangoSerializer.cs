@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Core.Arango.Serialization
 {
@@ -21,5 +24,8 @@ namespace Core.Arango.Serialization
         ///     Convert string to object
         /// </summary>
         public object Deserialize(string value, Type type);
+        Task<byte[]> SerializeAsync(object value, CancellationToken token = default);
+        ValueTask<T> DeserializeAsync<T>(byte[] buffer, CancellationToken token = default);
+        ValueTask<T> DeserializeAsync<T>(Stream stream, CancellationToken token = default);
     }
 }
