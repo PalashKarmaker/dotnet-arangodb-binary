@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Core.Arango.Linq.Interface;
+using Core.Arango.Linq.Query.Clause;
+using Core.Arango.Linq.Utility;
+using Core.Arango.Relinq.Clauses;
+using Core.Arango.Relinq.Parsing.Structure.NodeTypeProviders;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Linq.Interface;
-using Core.Arango.Linq.Query.Clause;
-using Core.Arango.Linq.Utility;
-using Core.Arango.Relinq.Clauses;
-using Core.Arango.Relinq.Parsing.Structure.NodeTypeProviders;
 
 namespace Core.Arango.Linq.Query
 {
@@ -29,9 +29,9 @@ namespace Core.Arango.Linq.Query
             switch (wrappedCall.Body.NodeType)
             {
                 case ExpressionType.Call:
-                    return ((MethodCallExpression) wrappedCall.Body).Method;
+                    return ((MethodCallExpression)wrappedCall.Body).Method;
                 case ExpressionType.MemberAccess:
-                    var memberExpression = (MemberExpression) wrappedCall.Body;
+                    var memberExpression = (MemberExpression)wrappedCall.Body;
                     var property = memberExpression.Member as PropertyInfo;
                     var method = property != null ? property.GetMethod : null;
                     if (method != null)

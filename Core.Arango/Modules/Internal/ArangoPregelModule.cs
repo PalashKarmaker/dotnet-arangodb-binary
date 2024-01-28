@@ -1,7 +1,7 @@
-﻿using System.Net.Http;
+﻿using Core.Arango.Protocol;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
 
 namespace Core.Arango.Modules.Internal
 {

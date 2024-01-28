@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Core.Arango.Serialization;
+﻿using Core.Arango.Serialization;
 using Core.Arango.Serialization.Json;
 using Core.Arango.Serialization.Newtonsoft;
 using Core.Arango.Tests.Core;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -63,7 +61,7 @@ namespace Core.Arango.Tests
         public void Performance(IArangoSerializer serializer, string name)
         {
             var docs = Enumerable.Range(1, 100000)
-                .Select(x => new Entity {Value = x});
+                .Select(x => new Entity { Value = x });
 
             var sw = new Stopwatch();
             sw.Start();

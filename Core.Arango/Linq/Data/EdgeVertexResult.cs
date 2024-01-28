@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Core.Arango.Linq.Attributes;
+﻿using Core.Arango.Linq.Attributes;
 using Core.Arango.Linq.Interface;
+using System.Collections.Generic;
 
 namespace Core.Arango.Linq.Data
 {

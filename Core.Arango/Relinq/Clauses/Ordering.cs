@@ -15,10 +15,10 @@
 // under the License.
 // 
 
-using System;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq.Expressions;
 
 #if NET_3_5
 using System.Diagnostics;

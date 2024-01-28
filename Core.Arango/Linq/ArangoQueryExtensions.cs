@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Arango.Linq.Interface;
+using Core.Arango.Linq.Query;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +8,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Linq.Interface;
-using Core.Arango.Linq.Query;
 
 namespace Core.Arango.Linq
 {

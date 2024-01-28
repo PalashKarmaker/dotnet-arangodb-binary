@@ -15,14 +15,14 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Collections;
+using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Collections;
-using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.Structure.NodeTypeProviders
 {

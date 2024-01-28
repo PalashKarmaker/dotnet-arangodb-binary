@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.Expressions;
+using Remotion.Utilities;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Clauses.Expressions;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing
 {
@@ -40,7 +40,7 @@ namespace Core.Arango.Relinq.Parsing
         public override Expression Visit(Expression expression)
         {
             if (expression == null)
-                return base.Visit((Expression) null);
+                return base.Visit((Expression)null);
 
             var isCustomExpression =
                 !ReferenceEquals(s_systemLinqAssembly, expression.GetType().GetTypeInfo().Assembly);

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Core.Arango.Linq.Attributes;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Core.Arango.Linq.Attributes;
 
 namespace Core.Arango.Linq
 {

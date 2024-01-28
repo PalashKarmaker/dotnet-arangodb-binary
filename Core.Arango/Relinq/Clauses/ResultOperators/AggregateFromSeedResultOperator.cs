@@ -15,16 +15,16 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ExpressionVisitors;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using JetBrains.Annotations;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -44,7 +44,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
     {
         private static readonly MethodInfo s_executeMethod =
             typeof(AggregateFromSeedResultOperator).GetRuntimeMethodChecked("ExecuteAggregateInMemory",
-                new[] {typeof(StreamedSequence)});
+                new[] { typeof(StreamedSequence) });
 
         private LambdaExpression _func;
         private LambdaExpression _resultSelector;
@@ -166,7 +166,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
             ArgumentUtility.CheckNotNull("input", input);
 
             var closedExecuteMethod = s_executeMethod.MakeGenericMethod(typeof(TInput), Seed.Type, GetResultType());
-            return (StreamedValue) InvokeExecuteMethod(closedExecuteMethod, input);
+            return (StreamedValue)InvokeExecuteMethod(closedExecuteMethod, input);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
             var seed = GetConstantSeed<TAggregate>();
             var funcLambda =
                 ReverseResolvingExpressionVisitor.ReverseResolveLambda(input.DataInfo.ItemExpression, Func, 1);
-            var func = (Func<TAggregate, TInput, TAggregate>) funcLambda.Compile();
+            var func = (Func<TAggregate, TInput, TAggregate>)funcLambda.Compile();
 
             var aggregated = sequence.Aggregate(seed, func);
             var outputDataInfo = GetOutputDataInfo(input.DataInfo);
@@ -194,7 +194,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
                 return new StreamedValue(aggregated, outputDataInfo);
             }
 
-            var resultSelector = (Func<TAggregate, TResult>) OptionalResultSelector.Compile();
+            var resultSelector = (Func<TAggregate, TResult>)OptionalResultSelector.Compile();
             var result = resultSelector(aggregated);
             return new StreamedValue(result, outputDataInfo);
         }
@@ -249,9 +249,9 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
         public override void TransformExpressions(Func<Expression, Expression> transformation)
         {
             Seed = transformation(Seed);
-            Func = (LambdaExpression) transformation(Func);
+            Func = (LambdaExpression)transformation(Func);
             if (OptionalResultSelector != null)
-                OptionalResultSelector = (LambdaExpression) transformation(OptionalResultSelector);
+                OptionalResultSelector = (LambdaExpression)transformation(OptionalResultSelector);
         }
 
         /// <inheritdoc />

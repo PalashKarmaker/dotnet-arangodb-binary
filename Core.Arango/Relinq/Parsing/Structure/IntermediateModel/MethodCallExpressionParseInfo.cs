@@ -15,8 +15,8 @@
 // under the License.
 // 
 
-using System.Linq.Expressions;
 using Remotion.Utilities;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 {

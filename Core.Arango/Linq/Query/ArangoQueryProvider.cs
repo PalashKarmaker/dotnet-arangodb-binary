@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Core.Arango.Linq.Data;
+﻿using Core.Arango.Linq.Data;
 using Core.Arango.Linq.Interface;
 using Core.Arango.Relinq;
 using Core.Arango.Relinq.Parsing.Structure;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Linq.Query
 {
@@ -71,7 +71,7 @@ namespace Core.Arango.Linq.Query
         /// <returns>An <see cref="IQueryable{T}" /> that represents the query defined by <paramref name="expression" />.</returns>
         public override IQueryable<T> CreateQuery<T>(Expression expression)
         {
-            return (IQueryable<T>) Activator.CreateInstance(QueryableType.MakeGenericType(typeof(T)), this, expression,
+            return (IQueryable<T>)Activator.CreateInstance(QueryableType.MakeGenericType(typeof(T)), this, expression,
                 db);
         }
 

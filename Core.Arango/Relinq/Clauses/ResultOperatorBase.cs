@@ -15,13 +15,13 @@
 // under the License.
 // 
 
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.ResultOperators;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses
 {
@@ -115,7 +115,7 @@ namespace Core.Arango.Relinq.Clauses
             var targetObject = method.IsStatic ? null : this;
             try
             {
-                return method.Invoke(targetObject, new[] {input});
+                return method.Invoke(targetObject, new[] { input });
             }
             catch (TargetInvocationException ex)
             {
@@ -162,7 +162,7 @@ namespace Core.Arango.Relinq.Clauses
             var itemAsConstantExpression = expression as ConstantExpression;
             if (itemAsConstantExpression != null)
             {
-                return (T) itemAsConstantExpression.Value;
+                return (T)itemAsConstantExpression.Value;
             }
 
             {

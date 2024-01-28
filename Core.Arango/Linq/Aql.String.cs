@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Core.Arango.Linq.Attributes;
+﻿using Core.Arango.Linq.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Arango.Linq
 {

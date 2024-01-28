@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 {
@@ -62,7 +62,7 @@ namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
                 GetParameterArray(constructors[0], parseInfo, additionalConstructorParameters);
             try
             {
-                return (IExpressionNode) constructors[0].Invoke(constructorParameterArray);
+                return (IExpressionNode)constructors[0].Invoke(constructorParameterArray);
             }
             catch (ArgumentException ex)
             {

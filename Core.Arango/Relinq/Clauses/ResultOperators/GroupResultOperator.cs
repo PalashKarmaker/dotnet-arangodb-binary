@@ -15,15 +15,15 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ExpressionVisitors;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -49,7 +49,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
     {
         private static readonly MethodInfo s_executeMethod =
             typeof(GroupResultOperator).GetRuntimeMethodChecked("ExecuteGroupingInMemory",
-                new[] {typeof(StreamedSequence)});
+                new[] { typeof(StreamedSequence) });
 
         private Expression _elementSelector;
 
@@ -170,7 +170,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
 
             var closedExecuteMethod =
                 s_executeMethod.MakeGenericMethod(typeof(TInput), KeySelector.Type, ElementSelector.Type);
-            return (StreamedSequence) InvokeExecuteMethod(closedExecuteMethod, input);
+            return (StreamedSequence)InvokeExecuteMethod(closedExecuteMethod, input);
         }
 
         public StreamedSequence ExecuteGroupingInMemory<TSource, TKey, TElement>(StreamedSequence input)
@@ -181,15 +181,15 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
 
             var keySelectorLambda =
                 ReverseResolvingExpressionVisitor.ReverseResolve(input.DataInfo.ItemExpression, KeySelector);
-            var keySelector = (Func<TSource, TKey>) keySelectorLambda.Compile();
+            var keySelector = (Func<TSource, TKey>)keySelectorLambda.Compile();
 
             var elementSelectorLambda =
                 ReverseResolvingExpressionVisitor.ReverseResolve(input.DataInfo.ItemExpression, ElementSelector);
-            var elementSelector = (Func<TSource, TElement>) elementSelectorLambda.Compile();
+            var elementSelector = (Func<TSource, TElement>)elementSelectorLambda.Compile();
 
             var resultSequence = inputSequence.GroupBy(keySelector, elementSelector);
             return new StreamedSequence(resultSequence.AsQueryable(),
-                (StreamedSequenceInfo) GetOutputDataInfo(input.DataInfo));
+                (StreamedSequenceInfo)GetOutputDataInfo(input.DataInfo));
         }
 
         public override IStreamedDataInfo GetOutputDataInfo(IStreamedDataInfo inputInfo)

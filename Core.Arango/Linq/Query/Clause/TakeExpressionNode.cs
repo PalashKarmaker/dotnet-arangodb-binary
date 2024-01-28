@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using Core.Arango.Relinq;
+using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq;
-using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
 
 namespace Core.Arango.Linq.Query.Clause
 {

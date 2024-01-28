@@ -15,11 +15,6 @@
 // under the License.
 // 
 
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ResultOperators;
@@ -28,6 +23,11 @@ using Core.Arango.Relinq.Parsing;
 using Core.Arango.Relinq.Parsing.Structure;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Linq.Expressions;
 
 #if !NET_3_5
 #endif
@@ -170,7 +170,7 @@ namespace Core.Arango.Relinq
         public IStreamedDataInfo GetOutputDataInfo()
         {
             var outputDataInfo = ResultOperators
-                .Aggregate((IStreamedDataInfo) SelectClause.GetOutputDataInfo(),
+                .Aggregate((IStreamedDataInfo)SelectClause.GetOutputDataInfo(),
                     (current, resultOperator) => resultOperator.GetOutputDataInfo(current));
 
             if (ResultTypeOverride == null)
@@ -385,7 +385,7 @@ namespace Core.Arango.Relinq
         {
             return BodyClauses.Count == 0
                    && SelectClause.Selector is QuerySourceReferenceExpression
-                   && ((QuerySourceReferenceExpression) SelectClause.Selector).ReferencedQuerySource == MainFromClause;
+                   && ((QuerySourceReferenceExpression)SelectClause.Selector).ReferencedQuerySource == MainFromClause;
         }
 
         /// <summary>

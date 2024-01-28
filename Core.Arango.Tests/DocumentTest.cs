@@ -1,9 +1,9 @@
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Tests.Core;
 using Xunit;
 
 namespace Core.Arango.Tests
@@ -165,7 +165,7 @@ namespace Core.Arango.Tests
 
             await Arango.Collection.CreateAsync("test", "test", ArangoCollectionType.Document);
 
-             await Arango.Document.CreateAsync("test", "test", new
+            await Arango.Document.CreateAsync("test", "test", new
             {
                 Key = "abc",
                 Name = "a"

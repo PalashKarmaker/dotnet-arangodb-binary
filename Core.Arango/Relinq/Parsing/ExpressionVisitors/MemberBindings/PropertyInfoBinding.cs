@@ -41,8 +41,8 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.MemberBindings
                 return true;
 
             var methodInfo = member as MethodInfo;
-            if (methodInfo != null && ((PropertyInfo) BoundMember).CanRead &&
-                methodInfo == ((PropertyInfo) BoundMember).GetGetMethod(true))
+            if (methodInfo != null && ((PropertyInfo)BoundMember).CanRead &&
+                methodInfo == ((PropertyInfo)BoundMember).GetGetMethod(true))
                 return true;
 
             return false;

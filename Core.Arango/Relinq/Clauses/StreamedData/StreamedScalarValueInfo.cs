@@ -15,11 +15,11 @@
 // under the License.
 // 
 
-using System;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.ResultOperators;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.StreamedData
 {
@@ -33,7 +33,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
     {
         private static readonly MethodInfo s_executeMethod =
             typeof(StreamedScalarValueInfo).GetRuntimeMethodChecked("ExecuteScalarQueryModel",
-                new[] {typeof(QueryModel), typeof(IQueryExecutor)});
+                new[] { typeof(QueryModel), typeof(IQueryExecutor) });
 
         public StreamedScalarValueInfo(Type dataType)
             : base(dataType)
@@ -48,7 +48,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
             var executeMethod = s_executeMethod.MakeGenericMethod(DataType);
 
             // wrap executeMethod into a delegate instead of calling Invoke in order to allow for exceptions that are bubbled up correctly
-            var func = (Func<QueryModel, IQueryExecutor, object>) executeMethod.CreateDelegate(
+            var func = (Func<QueryModel, IQueryExecutor, object>)executeMethod.CreateDelegate(
                 typeof(Func<QueryModel, IQueryExecutor, object>), this);
 
             var result = func(queryModel, executor);

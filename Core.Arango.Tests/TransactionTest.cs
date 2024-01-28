@@ -1,10 +1,10 @@
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Tests.Core;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Core.Arango.Tests
@@ -22,7 +22,7 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
@@ -41,7 +41,7 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
@@ -76,7 +76,7 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
@@ -93,7 +93,7 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
@@ -138,13 +138,13 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
             await Arango.Document.CreateManyAsync(t1, "test",
                 Enumerable.Range(1, 100000)
-                    .Select(x => new Entity {Value = x}));
+                    .Select(x => new Entity { Value = x }));
 
             await AssertStreamQuery(t1, 100000);
 
@@ -156,13 +156,13 @@ namespace Core.Arango.Tests
             {
                 Collections = new ArangoTransactionScope
                 {
-                    Write = new List<string> {"test"}
+                    Write = new List<string> { "test" }
                 }
             });
 
             await Arango.Document.CreateManyAsync(t2, "test",
                 Enumerable.Range(1, 100000)
-                    .Select(x => new Entity {Value = x}));
+                    .Select(x => new Entity { Value = x }));
 
             await AssertStreamQuery(t2, 200000);
             await AssertStreamQuery("test", 100000);

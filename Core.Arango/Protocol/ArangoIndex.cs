@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace Core.Arango.Protocol
 {
@@ -138,7 +137,7 @@ namespace Core.Arango.Protocol
         /// </summary>
         [JsonPropertyName("storedValues")]
         [JsonProperty(PropertyName = "storedValues", NullValueHandling = NullValueHandling.Ignore)]
-        [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] 
+        [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public List<string> StoredValues { get; set; }
 
         /// <summary>

@@ -1,10 +1,10 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.Arango.Linq;
 using Core.Arango.Serialization.Json;
 using Core.Arango.Serialization.Newtonsoft;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 

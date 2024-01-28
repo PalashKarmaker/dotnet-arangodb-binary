@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Core.Arango.Modules;
+using Core.Arango.Modules.Internal;
+using Core.Arango.Protocol;
+using Core.Arango.Protocol.Internal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,10 +10,6 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Modules;
-using Core.Arango.Modules.Internal;
-using Core.Arango.Protocol;
-using Core.Arango.Protocol.Internal;
 
 namespace Core.Arango
 {

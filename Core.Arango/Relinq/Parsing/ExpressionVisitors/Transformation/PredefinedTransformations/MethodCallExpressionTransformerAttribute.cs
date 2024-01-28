@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Linq.Expressions;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -50,7 +50,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
             ArgumentUtility.CheckNotNull("expression", expression);
             try
             {
-                return (IExpressionTransformer<MethodCallExpression>) Activator.CreateInstance(TransformerType);
+                return (IExpressionTransformer<MethodCallExpression>)Activator.CreateInstance(TransformerType);
             }
             catch (MissingMemberException ex)
             {

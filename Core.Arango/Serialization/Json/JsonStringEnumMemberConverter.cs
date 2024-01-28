@@ -60,17 +60,17 @@ namespace Core.Arango.Serialization.Json
             (var IsNullableEnum, var UnderlyingType) = TestNullableEnum(typeToConvert);
 
             return IsNullableEnum
-                ? (JsonConverter) Activator.CreateInstance(
+                ? (JsonConverter)Activator.CreateInstance(
                     typeof(NullableEnumMemberConverter<>).MakeGenericType(UnderlyingType),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
-                    new object?[] {_NamingPolicy, _AllowIntegerValues},
+                    new object?[] { _NamingPolicy, _AllowIntegerValues },
                     null)
-                : (JsonConverter) Activator.CreateInstance(
+                : (JsonConverter)Activator.CreateInstance(
                     typeof(EnumMemberConverter<>).MakeGenericType(typeToConvert),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
-                    new object?[] {_NamingPolicy, _AllowIntegerValues},
+                    new object?[] { _NamingPolicy, _AllowIntegerValues },
                     null);
         }
 

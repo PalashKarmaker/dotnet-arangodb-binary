@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.Structure.ExpressionTreeProcessors
 {

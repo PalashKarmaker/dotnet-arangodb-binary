@@ -15,14 +15,14 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using JetBrains.Annotations;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {

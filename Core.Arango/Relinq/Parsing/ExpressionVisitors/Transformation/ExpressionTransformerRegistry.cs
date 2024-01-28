@@ -15,13 +15,13 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Collections;
+using Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Collections;
-using Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation
 {
@@ -180,7 +180,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation
             T castExpression;
             try
             {
-                castExpression = (T) expression;
+                castExpression = (T)expression;
             }
             catch (InvalidCastException ex)
             {

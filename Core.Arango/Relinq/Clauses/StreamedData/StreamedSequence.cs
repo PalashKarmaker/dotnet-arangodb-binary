@@ -15,12 +15,12 @@
 // under the License.
 // 
 
+using JetBrains.Annotations;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using JetBrains.Annotations;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.StreamedData
 {
@@ -79,7 +79,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
         {
             try
             {
-                return (IEnumerable<T>) Sequence;
+                return (IEnumerable<T>)Sequence;
             }
             catch (InvalidCastException ex)
             {

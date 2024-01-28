@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Core.Arango.Linq.Collection;
+﻿using Core.Arango.Linq.Collection;
 using Core.Arango.Linq.Data;
 using Core.Arango.Linq.Interface;
 using Core.Arango.Linq.Query;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Linq
 {

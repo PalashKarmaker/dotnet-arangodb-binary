@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.StreamedData;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Clauses.StreamedData;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {

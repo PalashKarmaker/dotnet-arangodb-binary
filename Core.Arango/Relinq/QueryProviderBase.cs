@@ -15,14 +15,14 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Parsing.Structure;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq
 {
@@ -89,8 +89,8 @@ namespace Core.Arango.Relinq
             ArgumentUtility.CheckNotNull("expression", expression);
 
             var elementType = ReflectionUtility.GetItemTypeOfClosedGenericIEnumerable(expression.Type, "expression");
-            return (IQueryable) s_genericCreateQueryMethod.MakeGenericMethod(elementType)
-                .Invoke(this, new object[] {expression});
+            return (IQueryable)s_genericCreateQueryMethod.MakeGenericMethod(elementType)
+                .Invoke(this, new object[] { expression });
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Core.Arango.Relinq
             ArgumentUtility.CheckNotNull("expression", expression);
 
             var resultData = Execute(expression);
-            return (TResult) resultData.Value;
+            return (TResult)resultData.Value;
         }
 
         /// <summary>

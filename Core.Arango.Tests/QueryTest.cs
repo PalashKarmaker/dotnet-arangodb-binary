@@ -1,10 +1,10 @@
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Tests.Core;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -47,7 +47,7 @@ namespace Core.Arango.Tests
                 new() {Value = 3}
             });
 
-            var select = new List<int> {1, 2};
+            var select = new List<int> { 1, 2 };
 
             var res = await Arango.Query.ExecuteAsync<Entity>("test",
                 $"FOR e IN test FILTER e.Value IN {select} RETURN e");
@@ -111,7 +111,7 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync("test", "test",
                 Enumerable.Range(1, 100000)
-                    .Select(x => new Entity {Value = x}));
+                    .Select(x => new Entity { Value = x }));
 
             var res = await Arango.Query.ExecuteAsync<string>("test",
                 $"FOR e IN test RETURN e._id");
@@ -128,7 +128,7 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync("test", "test",
                 Enumerable.Range(1, 100000)
-                    .Select(x => new Entity {Value = x}));
+                    .Select(x => new Entity { Value = x }));
 
             var i = 0;
 
@@ -152,7 +152,7 @@ namespace Core.Arango.Tests
                 new() {Value = 3}
             });
 
-            var select = new List<int> {1, 2};
+            var select = new List<int> { 1, 2 };
 
             var res = await Arango.Query.ExplainAsync("test",
                 $"FOR e IN test FILTER e.Value IN {select} RETURN e");

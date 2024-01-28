@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Arango.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,7 +8,6 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Serialization;
 
 namespace Core.Arango.Modules.Internal
 {

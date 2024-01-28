@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace Core.Arango.Protocol
 {
@@ -37,7 +37,7 @@ namespace Core.Arango.Protocol
         ///     Maximum allowed size of all consolidated segments in bytes (default: 5368709120)
         /// </summary>
         [JsonPropertyName("segmentsBytesMax")]
-        [JsonProperty(PropertyName = "segmentsBytesMax",  NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "segmentsBytesMax", NullValueHandling = NullValueHandling.Ignore)]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public long? SegmentsBytesMax { get; set; }
 
@@ -45,7 +45,7 @@ namespace Core.Arango.Protocol
         ///     The maximum number of segments that will be evaluated as candidates for consolidation (default: 10)
         /// </summary>
         [JsonPropertyName("segmentsMax")]
-        [JsonProperty(PropertyName = "segmentsMax",  NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "segmentsMax", NullValueHandling = NullValueHandling.Ignore)]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public long? SegmentsMax { get; set; }
 
@@ -53,7 +53,7 @@ namespace Core.Arango.Protocol
         ///     The minimum number of segments that will be evaluated as candidates for consolidation (default: 1)
         /// </summary>
         [JsonPropertyName("segmentsMin")]
-        [JsonProperty(PropertyName = "segmentsMin",  NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "segmentsMin", NullValueHandling = NullValueHandling.Ignore)]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public long? SegmentsMin { get; set; }
 

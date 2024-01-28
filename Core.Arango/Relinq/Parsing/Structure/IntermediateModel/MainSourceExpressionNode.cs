@@ -15,13 +15,13 @@
 // under the License.
 // 
 
-using System;
-using System.Collections;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Collections;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 {
@@ -84,7 +84,7 @@ namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 
             var mainFromClause = CreateMainFromClause(clauseGenerationContext);
             var defaultSelectClause = new SelectClause(new QuerySourceReferenceExpression(mainFromClause));
-            return new QueryModel(mainFromClause, defaultSelectClause) {ResultTypeOverride = QuerySourceType};
+            return new QueryModel(mainFromClause, defaultSelectClause) { ResultTypeOverride = QuerySourceType };
         }
 
         private MainFromClause CreateMainFromClause(ClauseGenerationContext clauseGenerationContext)

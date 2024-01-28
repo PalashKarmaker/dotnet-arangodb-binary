@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json.Converters;
 
 namespace Core.Arango.Protocol
 {

@@ -15,11 +15,11 @@
 // under the License.
 // 
 
-using System;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Parsing;
 using Remotion.Utilities;
+using System;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Clauses.ExpressionVisitors
 {

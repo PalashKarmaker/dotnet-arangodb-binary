@@ -1,7 +1,6 @@
-using System;
-using System.Threading.Tasks;
 using Core.Arango.Protocol;
 using Core.Arango.Tests.Core;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -34,7 +33,7 @@ namespace Core.Arango.Tests
             Assert.False(await Arango.Database.ExistAsync("test3"));
 
             var info = await Arango.Database.GetAsync("test");
-            Assert.EndsWith("-test",info.Name);
+            Assert.EndsWith("-test", info.Name);
         }
 
         [Theory]

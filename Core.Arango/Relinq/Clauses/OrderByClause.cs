@@ -15,12 +15,12 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Utilities;
+using Remotion.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Utilities;
-using Remotion.Utilities;
 
 #if !NET_3_5
 

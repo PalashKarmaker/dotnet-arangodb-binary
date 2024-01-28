@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -35,7 +35,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
     {
         public ExpressionType[] SupportedExpressionTypes
         {
-            get { return new[] {ExpressionType.Invoke}; }
+            get { return new[] { ExpressionType.Invoke }; }
         }
 
         public Expression Transform(InvocationExpression expression)
@@ -53,9 +53,9 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
         private Expression StripTrivialConversions(Expression invokedExpression)
         {
             while (invokedExpression.NodeType == ExpressionType.Convert
-                   && invokedExpression.Type == ((UnaryExpression) invokedExpression).Operand.Type
-                   && ((UnaryExpression) invokedExpression).Method == null)
-                invokedExpression = ((UnaryExpression) invokedExpression).Operand;
+                   && invokedExpression.Type == ((UnaryExpression)invokedExpression).Operand.Type
+                   && ((UnaryExpression)invokedExpression).Method == null)
+                invokedExpression = ((UnaryExpression)invokedExpression).Operand;
             return invokedExpression;
         }
 

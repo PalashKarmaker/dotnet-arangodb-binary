@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Core.Arango.Linq.Query;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Core.Arango.Linq.Query;
 
 namespace Core.Arango.Linq.Utility
 {

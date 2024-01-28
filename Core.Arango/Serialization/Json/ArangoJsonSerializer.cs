@@ -62,7 +62,7 @@ internal class ArangoJsonUnixTimeConverter : JsonConverter<DateTime>
         return DateTime.MinValue;
     }
 
-    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options) => 
+    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options) =>
         writer.WriteNumberValue(((DateTimeOffset)value).ToUnixTimeMilliseconds());
 }
 
@@ -78,7 +78,7 @@ internal class ArangoJsonUnixTimeDateTimeOffsetConverter : JsonConverter<DateTim
         return DateTimeOffset.MinValue;
     }
 
-    public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options) => 
+    public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options) =>
         writer.WriteNumberValue(value.ToUnixTimeMilliseconds());
 }
 
@@ -144,7 +144,7 @@ public class ArangoJsonSerializer : IArangoSerializer
         return await DeserializeAsync<T>(ms, token).ConfigureAwait(false);
     }
     /// <inheritdoc />
-    public ValueTask<T> DeserializeAsync<T>(Stream stream, CancellationToken token = default) => 
+    public ValueTask<T> DeserializeAsync<T>(Stream stream, CancellationToken token = default) =>
         JsonSerializer.DeserializeAsync<T>(stream, _options, token);
 
     /// <inheritdoc />

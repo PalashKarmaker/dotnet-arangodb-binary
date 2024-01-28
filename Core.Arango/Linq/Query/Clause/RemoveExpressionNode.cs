@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core.Arango.Relinq;
+using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq;
-using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
 
 namespace Core.Arango.Linq.Query.Clause
 {
@@ -55,7 +55,7 @@ namespace Core.Arango.Linq.Query.Clause
 
             queryModel.BodyClauses.Add(new RemoveClause(
                 queryModel.MainFromClause.ItemName,
-                (Type) Collection.Value,
+                (Type)Collection.Value,
                 KeySelector != null ? GetResolvedKeyPredicate(clauseGenerationContext) : null));
         }
     }

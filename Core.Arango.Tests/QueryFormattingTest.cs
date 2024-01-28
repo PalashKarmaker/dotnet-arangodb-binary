@@ -1,8 +1,8 @@
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Tests.Core;
 using Xunit;
 
 namespace Core.Arango.Tests

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Arango.Protocol;
+using Core.Arango.Protocol.Internal;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -9,9 +12,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Protocol.Internal;
-using Newtonsoft.Json;
 
 namespace Core.Arango.Transport
 {
@@ -67,7 +67,7 @@ namespace Core.Arango.Transport
                     var errorContent = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     var error = configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
                     throw new ArangoException(errorContent, error.ErrorMessage,
-                        (HttpStatusCode) error.Code, (ArangoErrorCode) error.ErrorNum);
+                        (HttpStatusCode)error.Code, (ArangoErrorCode)error.ErrorNum);
                 }
                 else
                     return default;
@@ -77,7 +77,7 @@ namespace Core.Arango.Transport
             if (res.Headers.Contains("X-Arango-Error-Codes"))
             {
                 var errors = configuration.Serializer.Deserialize<IEnumerable<ErrorResponse>>(content)
-                    .Select(error => new ArangoError(error.ErrorMessage, (ArangoErrorCode) error.ErrorNum));
+                    .Select(error => new ArangoError(error.ErrorMessage, (ArangoErrorCode)error.ErrorNum));
                 throw new ArangoException(content, errors);
             }
 

@@ -15,16 +15,16 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ExpressionVisitors;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using JetBrains.Annotations;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -103,7 +103,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
             var sequence = input.GetTypedSequence<T>();
             var funcLambda =
                 ReverseResolvingExpressionVisitor.ReverseResolveLambda(input.DataInfo.ItemExpression, Func, 1);
-            var func = (Func<T, T, T>) funcLambda.Compile();
+            var func = (Func<T, T, T>)funcLambda.Compile();
             var result = sequence.Aggregate(func);
             return new StreamedValue(result, GetOutputDataInfo(input.DataInfo));
         }
@@ -133,7 +133,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
         public override void TransformExpressions(Func<Expression, Expression> transformation)
         {
             ArgumentUtility.CheckNotNull("transformation", transformation);
-            Func = (LambdaExpression) transformation(Func);
+            Func = (LambdaExpression)transformation(Func);
         }
 
         /// <inheritdoc />

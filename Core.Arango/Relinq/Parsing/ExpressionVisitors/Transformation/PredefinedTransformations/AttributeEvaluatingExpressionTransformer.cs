@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -34,7 +34,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
     {
         public ExpressionType[] SupportedExpressionTypes
         {
-            get { return new[] {ExpressionType.Call, ExpressionType.MemberAccess}; }
+            get { return new[] { ExpressionType.Call, ExpressionType.MemberAccess }; }
         }
 
         public Expression Transform(Expression expression)
@@ -44,7 +44,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null && memberExpression.Member is PropertyInfo)
             {
-                var property = (PropertyInfo) memberExpression.Member;
+                var property = (PropertyInfo)memberExpression.Member;
                 var getter = property.GetGetMethod(true);
                 Assertion.IsNotNull(getter, "No get-method was found for property '{0}' declared on type '{1}'.",
                     property.Name, property.DeclaringType);

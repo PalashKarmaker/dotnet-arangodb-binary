@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.ResultOperators;
 using System;
 using System.Collections.Generic;
-using Core.Arango.Relinq.Clauses.ResultOperators;
 
 namespace Core.Arango.Relinq
 {

@@ -15,9 +15,9 @@
 // under the License.
 // 
 
-using System.Linq;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Remotion.Utilities;
+using System.Linq;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {

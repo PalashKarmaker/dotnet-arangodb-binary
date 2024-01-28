@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.MemberBindings
 {
@@ -59,7 +59,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.MemberBindings
             if (propertyInfo != null)
                 return new PropertyInfoBinding(propertyInfo, associatedExpression);
 
-            return new FieldInfoBinding((FieldInfo) boundMember, associatedExpression);
+            return new FieldInfoBinding((FieldInfo)boundMember, associatedExpression);
         }
 
         public abstract bool MatchesReadAccess(MemberInfo member);

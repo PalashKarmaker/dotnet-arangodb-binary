@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Core.Arango.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
-using Core.Arango.Protocol;
 
 namespace Core.Arango
 {

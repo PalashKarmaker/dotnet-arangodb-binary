@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core.Arango.Linq.Interface;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Linq.Interface;
 
 namespace Core.Arango.Linq
 {

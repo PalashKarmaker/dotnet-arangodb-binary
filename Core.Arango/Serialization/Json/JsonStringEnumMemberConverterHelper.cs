@@ -114,7 +114,7 @@ namespace Core.Arango.Serialization.Json
 
             for (var i = 0; i < builtInNames.Length; i++)
             {
-                var enumValue = (Enum?) builtInValues.GetValue(i);
+                var enumValue = (Enum?)builtInValues.GetValue(i);
                 if (enumValue == null)
                     continue;
                 var rawValue = GetEnumValue(enumValue);
@@ -175,7 +175,7 @@ namespace Core.Arango.Serialization.Json
                                 throw GenerateJsonException(_EnumType, flagValue);
                         }
 
-                    var enumValue = (TEnum) Enum.ToObject(_EnumType, calculatedValue);
+                    var enumValue = (TEnum)Enum.ToObject(_EnumType, calculatedValue);
                     if (_TransformedToRaw.Count < 64)
                         _TransformedToRaw[enumString] = new EnumInfo(enumString, enumValue, calculatedValue);
                     return enumValue;
@@ -195,28 +195,28 @@ namespace Core.Arango.Serialization.Json
             switch (_EnumTypeCode)
             {
                 case TypeCode.Int32:
-                    if (reader.TryGetInt32(out var int32)) return (TEnum) Enum.ToObject(_EnumType, int32);
+                    if (reader.TryGetInt32(out var int32)) return (TEnum)Enum.ToObject(_EnumType, int32);
                     break;
                 case TypeCode.Int64:
-                    if (reader.TryGetInt64(out var int64)) return (TEnum) Enum.ToObject(_EnumType, int64);
+                    if (reader.TryGetInt64(out var int64)) return (TEnum)Enum.ToObject(_EnumType, int64);
                     break;
                 case TypeCode.Int16:
-                    if (reader.TryGetInt16(out var int16)) return (TEnum) Enum.ToObject(_EnumType, int16);
+                    if (reader.TryGetInt16(out var int16)) return (TEnum)Enum.ToObject(_EnumType, int16);
                     break;
                 case TypeCode.Byte:
-                    if (reader.TryGetByte(out var ubyte8)) return (TEnum) Enum.ToObject(_EnumType, ubyte8);
+                    if (reader.TryGetByte(out var ubyte8)) return (TEnum)Enum.ToObject(_EnumType, ubyte8);
                     break;
                 case TypeCode.UInt32:
-                    if (reader.TryGetUInt32(out var uint32)) return (TEnum) Enum.ToObject(_EnumType, uint32);
+                    if (reader.TryGetUInt32(out var uint32)) return (TEnum)Enum.ToObject(_EnumType, uint32);
                     break;
                 case TypeCode.UInt64:
-                    if (reader.TryGetUInt64(out var uint64)) return (TEnum) Enum.ToObject(_EnumType, uint64);
+                    if (reader.TryGetUInt64(out var uint64)) return (TEnum)Enum.ToObject(_EnumType, uint64);
                     break;
                 case TypeCode.UInt16:
-                    if (reader.TryGetUInt16(out var uint16)) return (TEnum) Enum.ToObject(_EnumType, uint16);
+                    if (reader.TryGetUInt16(out var uint16)) return (TEnum)Enum.ToObject(_EnumType, uint16);
                     break;
                 case TypeCode.SByte:
-                    if (reader.TryGetSByte(out var byte8)) return (TEnum) Enum.ToObject(_EnumType, byte8);
+                    if (reader.TryGetSByte(out var byte8)) return (TEnum)Enum.ToObject(_EnumType, byte8);
                     break;
             }
 
@@ -270,28 +270,28 @@ namespace Core.Arango.Serialization.Json
             switch (_EnumTypeCode)
             {
                 case TypeCode.Int32:
-                    writer.WriteNumberValue((int) rawValue);
+                    writer.WriteNumberValue((int)rawValue);
                     break;
                 case TypeCode.Int64:
-                    writer.WriteNumberValue((long) rawValue);
+                    writer.WriteNumberValue((long)rawValue);
                     break;
                 case TypeCode.Int16:
-                    writer.WriteNumberValue((short) rawValue);
+                    writer.WriteNumberValue((short)rawValue);
                     break;
                 case TypeCode.Byte:
-                    writer.WriteNumberValue((byte) rawValue);
+                    writer.WriteNumberValue((byte)rawValue);
                     break;
                 case TypeCode.UInt32:
-                    writer.WriteNumberValue((uint) rawValue);
+                    writer.WriteNumberValue((uint)rawValue);
                     break;
                 case TypeCode.UInt64:
                     writer.WriteNumberValue(rawValue);
                     break;
                 case TypeCode.UInt16:
-                    writer.WriteNumberValue((ushort) rawValue);
+                    writer.WriteNumberValue((ushort)rawValue);
                     break;
                 case TypeCode.SByte:
-                    writer.WriteNumberValue((sbyte) rawValue);
+                    writer.WriteNumberValue((sbyte)rawValue);
                     break;
                 default:
                     throw new JsonException(); // GetEnumValue should have already thrown.
@@ -302,14 +302,14 @@ namespace Core.Arango.Serialization.Json
         {
             return _EnumTypeCode switch
             {
-                TypeCode.Int32 => (ulong) (int) value,
-                TypeCode.Int64 => (ulong) (long) value,
-                TypeCode.Int16 => (ulong) (short) value,
-                TypeCode.Byte => (byte) value,
-                TypeCode.UInt32 => (uint) value,
-                TypeCode.UInt64 => (ulong) value,
-                TypeCode.UInt16 => (ushort) value,
-                TypeCode.SByte => (ulong) (sbyte) value,
+                TypeCode.Int32 => (ulong)(int)value,
+                TypeCode.Int64 => (ulong)(long)value,
+                TypeCode.Int16 => (ulong)(short)value,
+                TypeCode.Byte => (byte)value,
+                TypeCode.UInt32 => (uint)value,
+                TypeCode.UInt64 => (ulong)value,
+                TypeCode.UInt16 => (ushort)value,
+                TypeCode.SByte => (ulong)(sbyte)value,
                 _ => throw new NotSupportedException($"Enum '{value}' of {_EnumTypeCode} type is not supported.")
             };
         }

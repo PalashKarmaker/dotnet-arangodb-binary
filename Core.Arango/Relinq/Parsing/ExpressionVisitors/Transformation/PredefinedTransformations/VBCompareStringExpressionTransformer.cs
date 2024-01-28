@@ -15,12 +15,12 @@
 // under the License.
 // 
 
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -40,7 +40,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
         private const string c_vbCompareStringOperatorMethodName = "CompareString";
 
         private static readonly MethodInfo s_stringCompareToMethod =
-            typeof(string).GetRuntimeMethodChecked("CompareTo", new[] {typeof(string)});
+            typeof(string).GetRuntimeMethodChecked("CompareTo", new[] { typeof(string) });
 
         public ExpressionType[] SupportedExpressionTypes
         {
@@ -68,7 +68,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
                 var rightSideAsConstantExpression = expression.Right as ConstantExpression;
                 Assertion.DebugAssert(
                     rightSideAsConstantExpression != null && rightSideAsConstantExpression.Value is int &&
-                    (int) rightSideAsConstantExpression.Value == 0,
+                    (int)rightSideAsConstantExpression.Value == 0,
                     "The right side of the binary expression has to be a constant expression with value 0.");
 
                 var leftSideArgument2AsConstantExpression =
@@ -96,19 +96,19 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
                     binaryExpression = Expression.Equal(leftSideAsMethodCallExpression.Arguments[0],
                         leftSideAsMethodCallExpression.Arguments[1]);
                     return new VBStringComparisonExpression(binaryExpression,
-                        (bool) leftSideArgument2AsConstantExpression.Value);
+                        (bool)leftSideArgument2AsConstantExpression.Value);
                 case ExpressionType.NotEqual:
                     binaryExpression = Expression.NotEqual(leftSideAsMethodCallExpression.Arguments[0],
                         leftSideAsMethodCallExpression.Arguments[1]);
                     return new VBStringComparisonExpression(binaryExpression,
-                        (bool) leftSideArgument2AsConstantExpression.Value);
+                        (bool)leftSideArgument2AsConstantExpression.Value);
             }
 
             var methodCallExpression = Expression.Call(
                 leftSideAsMethodCallExpression.Arguments[0],
                 s_stringCompareToMethod, leftSideAsMethodCallExpression.Arguments[1]);
             var vbExpression = new VBStringComparisonExpression(methodCallExpression,
-                (bool) leftSideArgument2AsConstantExpression.Value);
+                (bool)leftSideArgument2AsConstantExpression.Value);
 
             if (expression.NodeType == ExpressionType.GreaterThan)
                 return Expression.GreaterThan(vbExpression, Expression.Constant(0));

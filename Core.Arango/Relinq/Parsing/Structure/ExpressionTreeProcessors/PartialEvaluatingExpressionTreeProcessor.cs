@@ -15,10 +15,10 @@
 // under the License.
 // 
 
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Parsing.ExpressionVisitors;
 using Core.Arango.Relinq.Parsing.ExpressionVisitors.TreeEvaluation;
 using Remotion.Utilities;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure.ExpressionTreeProcessors
 {

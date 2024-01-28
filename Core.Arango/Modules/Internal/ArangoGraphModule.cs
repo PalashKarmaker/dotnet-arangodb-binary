@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Core.Arango.Protocol;
+using Core.Arango.Protocol.Internal;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Protocol.Internal;
-using Newtonsoft.Json;
 
 namespace Core.Arango.Modules.Internal
 {

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace Core.Arango.Protocol
 {
     /// <summary>
-        ///   Arango Database
-        /// </summary>
-        public class ArangoDatabase
+    ///   Arango Database
+    /// </summary>
+    public class ArangoDatabase
     {
         /// <summary>
         ///   Has to contain a valid database name.
@@ -15,7 +15,7 @@ namespace Core.Arango.Protocol
         [JsonPropertyName("name")]
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// Database Options
         /// </summary>

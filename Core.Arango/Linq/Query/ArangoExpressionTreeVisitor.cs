@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Core.Arango.Linq.Attributes;
+﻿using Core.Arango.Linq.Attributes;
 using Core.Arango.Relinq;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Parsing;
+using System;
+using System.Collections;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Linq.Query
 {
@@ -60,7 +60,7 @@ namespace Core.Arango.Linq.Query
                 else
                     throw new InvalidOperationException($"Method {expression.Method.Name} is not supported in ArangoLinqProvider");
             }
-            else if(expression.Method.Name == "Equals")
+            else if (expression.Method.Name == "Equals")
             {
                 ModelVisitor.QueryText.Append(" ( ");
 
@@ -122,7 +122,7 @@ namespace Core.Arango.Linq.Query
                 methodName = aqlFunction.Name;
                 prop = aqlFunction.IsProperty;
             }
-            
+
             string argumentSeprator = null;
             var noParenthesis = MethodsWithNoParenthesis.TryGetValue(methodName, out argumentSeprator) || prop;
 
@@ -383,7 +383,7 @@ namespace Core.Arango.Linq.Query
 
             if (type == typeof(bool))
             {
-                ModelVisitor.QueryText.AppendFormat(" {0} ", (bool) value ? "true" : "false");
+                ModelVisitor.QueryText.AppendFormat(" {0} ", (bool)value ? "true" : "false");
                 return;
             }
 
@@ -492,7 +492,7 @@ namespace Core.Arango.Linq.Query
 
             if (!TreatNewWithoutBracket)
                 ModelVisitor.QueryText.Append(" { ");
-            var e = (NewExpression) NamedExpression.CreateNewExpressionWithNamedArguments(ModelVisitor.Db, expression);
+            var e = (NewExpression)NamedExpression.CreateNewExpressionWithNamedArguments(ModelVisitor.Db, expression);
             for (var i = 0; i < e.Arguments.Count; i++)
             {
                 Visit(e.Arguments[i]);

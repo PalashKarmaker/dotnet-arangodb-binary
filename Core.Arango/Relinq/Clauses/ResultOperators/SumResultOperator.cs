@@ -15,14 +15,14 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.StreamedData;
+using JetBrains.Annotations;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Clauses.StreamedData;
-using JetBrains.Annotations;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -48,7 +48,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
         {
             ArgumentUtility.CheckNotNull("input", input);
 
-            var method = typeof(Enumerable).GetRuntimeMethod("Sum", new[] {typeof(IEnumerable<T>)});
+            var method = typeof(Enumerable).GetRuntimeMethod("Sum", new[] { typeof(IEnumerable<T>) });
             if (method == null)
             {
                 var message = string.Format("Cannot calculate the sum of objects of type '{0}' in memory.",
@@ -56,8 +56,8 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
                 throw new NotSupportedException(message);
             }
 
-            var result = method.Invoke(null, new[] {input.GetTypedSequence<T>()});
-            return new StreamedValue(result, (StreamedValueInfo) GetOutputDataInfo(input.DataInfo));
+            var result = method.Invoke(null, new[] { input.GetTypedSequence<T>() });
+            return new StreamedValue(result, (StreamedValueInfo)GetOutputDataInfo(input.DataInfo));
         }
 
         public override IStreamedDataInfo GetOutputDataInfo(IStreamedDataInfo inputInfo)

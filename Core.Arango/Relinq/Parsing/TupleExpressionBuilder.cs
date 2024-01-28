@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing
 {
@@ -74,7 +74,7 @@ namespace Core.Arango.Relinq.Parsing
             var newTupleExpression =
                 Expression.New(
                     tupleType.GetTypeInfo().DeclaredConstructors.Single(),
-                    new[] {left, right}, tupleType.GetRuntimeProperty("Key").GetGetMethod(true),
+                    new[] { left, right }, tupleType.GetRuntimeProperty("Key").GetGetMethod(true),
                     tupleType.GetRuntimeProperty("Value").GetGetMethod(true));
             return newTupleExpression;
         }

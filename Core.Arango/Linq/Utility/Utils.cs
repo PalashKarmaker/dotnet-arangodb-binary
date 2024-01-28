@@ -1,5 +1,5 @@
-﻿using System;
-using Core.Arango.Linq.Collection;
+﻿using Core.Arango.Linq.Collection;
+using System;
 
 namespace Core.Arango.Linq.Utility
 {

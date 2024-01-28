@@ -15,13 +15,13 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.Structure.NodeTypeProviders
 {
@@ -214,8 +214,8 @@ public static readonly NameBasedRegistrationInfo[] SupportedMethodNames =
             var declaringTypeDefinition = referenceMethodDefinition.DeclaringType.GetGenericTypeDefinition();
 
             var referenceMethodSignature =
-                new[] {new {Name = "returnValue", Type = referenceMethodDefinition.ReturnType}}
-                    .Concat(referenceMethodDefinition.GetParameters().Select(p => new {p.Name, Type = p.ParameterType}))
+                new[] { new { Name = "returnValue", Type = referenceMethodDefinition.ReturnType } }
+                    .Concat(referenceMethodDefinition.GetParameters().Select(p => new { p.Name, Type = p.ParameterType }))
                     .ToArray();
 
             var candidates = declaringTypeDefinition.GetRuntimeMethods()
@@ -223,8 +223,8 @@ public static readonly NameBasedRegistrationInfo[] SupportedMethodNames =
                     m => new
                     {
                         Method = m,
-                        SignatureNames = new[] {"returnValue"}.Concat(m.GetParameters().Select(p => p.Name)).ToArray(),
-                        SignatureTypes = new[] {m.ReturnType}.Concat(m.GetParameters().Select(p => p.ParameterType))
+                        SignatureNames = new[] { "returnValue" }.Concat(m.GetParameters().Select(p => p.Name)).ToArray(),
+                        SignatureTypes = new[] { m.ReturnType }.Concat(m.GetParameters().Select(p => p.ParameterType))
                             .ToArray()
                     })
                 .Where(c => c.Method.Name == referenceMethodDefinition.Name &&

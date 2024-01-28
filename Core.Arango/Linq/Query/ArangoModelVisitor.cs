@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Text.Json;
-using Core.Arango.Linq.Collection;
+﻿using Core.Arango.Linq.Collection;
 using Core.Arango.Linq.Data;
 using Core.Arango.Linq.Interface;
 using Core.Arango.Linq.Query.Clause;
@@ -13,6 +7,12 @@ using Core.Arango.Relinq;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ResultOperators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Text.Json;
 
 namespace Core.Arango.Linq.Query
 {

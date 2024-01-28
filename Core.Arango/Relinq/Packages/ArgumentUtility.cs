@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Remotion.Utilities
@@ -175,7 +175,7 @@ namespace Remotion.Utilities
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
             if (enumerable != null)
-                // ReSharper restore CompareNonConstrainedGenericWithNull
+            // ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 var collection = enumerable as ICollection;
                 if (collection != null)
@@ -243,14 +243,14 @@ namespace Remotion.Utilities
                 [InvokerParameterName] string argumentName,
                 [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [NoEnumeration]
                 object actualValue)
-            // where TExpected: struct
+        // where TExpected: struct
         {
             if (actualValue == null)
                 throw new ArgumentNullException(argumentName);
 
             if (!(actualValue is TExpected))
                 throw CreateArgumentTypeException(argumentName, actualValue.GetType(), typeof(TExpected));
-            return (TExpected) actualValue;
+            return (TExpected)actualValue;
         }
 
         /// <summary>Checks of the <paramref name="actualValue" /> is of the <paramref name="expectedType" />.</summary>
@@ -304,7 +304,7 @@ namespace Remotion.Utilities
             if (actualValue == null)
                 try
                 {
-                    return (TExpected) actualValue;
+                    return (TExpected)actualValue;
                 }
                 catch (NullReferenceException)
                 {
@@ -314,7 +314,7 @@ namespace Remotion.Utilities
             if (!(actualValue is TExpected))
                 throw CreateArgumentTypeException(argumentName, actualValue.GetType(), typeof(TExpected));
 
-            return (TExpected) actualValue;
+            return (TExpected)actualValue;
         }
 
 
@@ -391,7 +391,7 @@ namespace Remotion.Utilities
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
             if (collection != null)
-                // ReSharper restore CompareNonConstrainedGenericWithNull
+            // ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 var index = 0;
                 foreach (var item in collection)
@@ -420,7 +420,7 @@ namespace Remotion.Utilities
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
             if (collection != null)
-                // ReSharper restore CompareNonConstrainedGenericWithNull
+            // ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 var index = 0;
                 foreach (var item in collection)

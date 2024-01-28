@@ -15,8 +15,8 @@
 // under the License.
 // 
 
-using System;
 using Core.Arango.Relinq.Clauses.Expressions;
+using System;
 
 namespace Core.Arango.Relinq.Clauses
 {

@@ -15,13 +15,13 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.Expressions;
+using JetBrains.Annotations;
+using Remotion.Utilities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Clauses.Expressions;
-using JetBrains.Annotations;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.TreeEvaluation
 {
@@ -86,7 +86,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.TreeEvaluation
         public override Expression Visit(Expression expression)
         {
             if (expression == null)
-                return base.Visit((Expression) null);
+                return base.Visit((Expression)null);
 
             // An expression node/subtree is evaluatable iff:
             // - by itself it would be evaluatable, and

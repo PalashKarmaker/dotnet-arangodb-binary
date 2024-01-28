@@ -23,7 +23,7 @@ namespace Core.Arango.Protocol
         /// </summary>
         public static ArangoFoxxSource FromZip(Stream zip)
         {
-            return new() {ZipArchive = zip};
+            return new() { ZipArchive = zip };
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Core.Arango.Protocol
         /// </summary>
         public static ArangoFoxxSource FromJavaScript(string script)
         {
-            return new() {JavaScript = script};
+            return new() { JavaScript = script };
         }
     }
 }

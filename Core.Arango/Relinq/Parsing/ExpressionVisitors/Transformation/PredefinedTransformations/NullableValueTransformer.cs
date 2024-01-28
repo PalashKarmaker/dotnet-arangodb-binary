@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -31,7 +31,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
     {
         public ExpressionType[] SupportedExpressionTypes
         {
-            get { return new[] {ExpressionType.MemberAccess}; }
+            get { return new[] { ExpressionType.MemberAccess }; }
         }
 
         public Expression Transform(MemberExpression expression)

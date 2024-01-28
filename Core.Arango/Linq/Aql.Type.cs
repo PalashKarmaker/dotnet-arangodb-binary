@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Core.Arango.Linq.Attributes;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Core.Arango.Linq.Attributes;
 
 namespace Core.Arango.Linq
 {

@@ -15,14 +15,14 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.StreamedData;
+using Core.Arango.Relinq.Utilities;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Clauses.StreamedData;
-using Core.Arango.Relinq.Utilities;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -40,7 +40,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
     internal sealed class CastResultOperator : SequenceFromSequenceResultOperatorBase
     {
         private static readonly MethodInfo s_enumerableCastMethod =
-            typeof(Enumerable).GetRuntimeMethodChecked("Cast", new[] {typeof(IEnumerable)});
+            typeof(Enumerable).GetRuntimeMethodChecked("Cast", new[] { typeof(IEnumerable) });
 
         private Type _castItemType;
 
@@ -71,8 +71,8 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
 
             var sequence = input.GetTypedSequence<TInput>();
             var castMethod = s_enumerableCastMethod.MakeGenericMethod(CastItemType);
-            var result = (IEnumerable) InvokeExecuteMethod(castMethod, sequence);
-            return new StreamedSequence(result.AsQueryable(), (StreamedSequenceInfo) GetOutputDataInfo(input.DataInfo));
+            var result = (IEnumerable)InvokeExecuteMethod(castMethod, sequence);
+            return new StreamedSequence(result.AsQueryable(), (StreamedSequenceInfo)GetOutputDataInfo(input.DataInfo));
         }
 
         public override IStreamedDataInfo GetOutputDataInfo(IStreamedDataInfo inputInfo)

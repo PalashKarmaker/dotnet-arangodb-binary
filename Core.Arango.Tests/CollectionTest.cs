@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using Core.Arango.Protocol;
 using Core.Arango.Tests.Core;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -80,9 +80,9 @@ namespace Core.Arango.Tests
                         type = "object",
                         properties = new
                         {
-                            name = new {type = "string"}
+                            name = new { type = "string" }
                         },
-                        required = new[] {"name"}
+                        required = new[] { "name" }
                         //additionalProperties = true
                     }
                 }

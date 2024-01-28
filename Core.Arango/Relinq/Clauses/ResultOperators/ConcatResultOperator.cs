@@ -15,15 +15,15 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.Expressions;
+using Core.Arango.Relinq.Clauses.StreamedData;
+using Core.Arango.Relinq.Utilities;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Clauses.Expressions;
-using Core.Arango.Relinq.Clauses.StreamedData;
-using Core.Arango.Relinq.Utilities;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -99,8 +99,8 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
         public override StreamedSequence ExecuteInMemory<T>(StreamedSequence input)
         {
             var sequence = input.GetTypedSequence<T>();
-            var result = sequence.Concat((IEnumerable<T>) GetConstantSource2());
-            return new StreamedSequence(result.AsQueryable(), (StreamedSequenceInfo) GetOutputDataInfo(input.DataInfo));
+            var result = sequence.Concat((IEnumerable<T>)GetConstantSource2());
+            return new StreamedSequence(result.AsQueryable(), (StreamedSequenceInfo)GetOutputDataInfo(input.DataInfo));
         }
 
         public override IStreamedDataInfo GetOutputDataInfo(IStreamedDataInfo inputInfo)

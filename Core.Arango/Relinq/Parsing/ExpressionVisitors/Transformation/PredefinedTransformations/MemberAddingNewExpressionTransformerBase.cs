@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -32,15 +32,15 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
     {
         public ExpressionType[] SupportedExpressionTypes
         {
-            get { return new[] {ExpressionType.New}; }
+            get { return new[] { ExpressionType.New }; }
         }
 
         public Expression Transform(NewExpression expression)
         {
             ArgumentUtility.CheckNotNull("expression", expression);
 
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-// ReSharper disable HeuristicUnreachableCode
+            // ReSharper disable ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable HeuristicUnreachableCode
             if (expression.Members == null && CanAddMembers(expression.Type, expression.Arguments))
             {
                 var members = GetMembers(expression.Constructor, expression.Arguments);
@@ -49,8 +49,8 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
                     RelinqExpressionVisitor.AdjustArgumentsForNewExpression(expression.Arguments, members),
                     members);
             }
-// ReSharper restore HeuristicUnreachableCode
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
+            // ReSharper restore HeuristicUnreachableCode
+            // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
             return expression;
         }

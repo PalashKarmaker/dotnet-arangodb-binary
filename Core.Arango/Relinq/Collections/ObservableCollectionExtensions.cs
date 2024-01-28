@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Remotion.Utilities;
 
 #if !NET_3_5
 #endif
@@ -53,7 +53,7 @@ namespace Core.Arango.Relinq.Collections
             this ObservableCollection<T> collection)
         {
             using (var enumerator =
-                (ChangeResistantObservableCollectionEnumerator<T>) collection.AsChangeResistantEnumerable()
+                (ChangeResistantObservableCollectionEnumerator<T>)collection.AsChangeResistantEnumerable()
                     .GetEnumerator())
             {
                 while (enumerator.MoveNext())

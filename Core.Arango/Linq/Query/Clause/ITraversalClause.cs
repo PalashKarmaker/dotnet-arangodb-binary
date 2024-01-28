@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Core.Arango.Linq.Data;
+using System.Collections.Generic;
 using System.Linq.Expressions;
-using Core.Arango.Linq.Data;
 
 namespace Core.Arango.Linq.Query.Clause
 {

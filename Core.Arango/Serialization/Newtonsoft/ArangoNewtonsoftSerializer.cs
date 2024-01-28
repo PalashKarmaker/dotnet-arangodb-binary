@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace Core.Arango.Serialization.Newtonsoft;
 
@@ -59,7 +58,7 @@ public class ArangoNewtonsoftSerializer : IArangoSerializer
     }
     /// <inheritdoc />
     public async ValueTask<T> DeserializeAsync<T>(Stream stream, CancellationToken token = default)
-    {        
+    {
         var obj = await Task.Run(() =>
         {
             using var reader = new StreamReader(stream);

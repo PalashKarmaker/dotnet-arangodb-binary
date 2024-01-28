@@ -53,7 +53,7 @@ namespace JetBrains.Annotations
         /// <param name="baseType">Specifies which types are required</param>
         public BaseTypeRequiredAttribute(Type baseType)
         {
-            BaseTypes = new[] {baseType};
+            BaseTypes = new[] { baseType };
         }
 
         /// <summary>

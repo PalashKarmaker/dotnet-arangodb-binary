@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Core.Arango.Linq.Interface;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Linq.Interface;
 
 namespace Core.Arango.Linq.Query
 {

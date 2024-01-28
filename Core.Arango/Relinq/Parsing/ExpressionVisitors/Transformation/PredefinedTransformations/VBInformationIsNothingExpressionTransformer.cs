@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System.Linq.Expressions;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.PredefinedTransformations
 {
@@ -35,7 +35,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation.Predefine
 
         public ExpressionType[] SupportedExpressionTypes
         {
-            get { return new[] {ExpressionType.Call}; }
+            get { return new[] { ExpressionType.Call }; }
         }
 
         public Expression Transform(MethodCallExpression expression)

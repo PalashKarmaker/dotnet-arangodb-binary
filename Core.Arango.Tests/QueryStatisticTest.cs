@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.Arango.Protocol;
 using Core.Arango.Tests.Core;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -52,7 +52,7 @@ namespace Core.Arango.Tests
                 new() {Value = 5}
             });
 
-            var select = new List<int> {1, 2, 3};
+            var select = new List<int> { 1, 2, 3 };
 
             var res = await Arango.Query.ExecuteAsync<Entity>("test",
                 $"FOR e IN test FILTER e.Value IN {select} LIMIT 2 RETURN e", fullCount: true);

@@ -1,5 +1,5 @@
-﻿using System;
-using Core.Arango.Linq.Interface;
+﻿using Core.Arango.Linq.Interface;
+using System;
 
 namespace Core.Arango.Linq.Attributes
 {

@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses.Expressions;
+using Remotion.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Clauses.Expressions;
-using Remotion.Utilities;
 using MemberBinding = Core.Arango.Relinq.Parsing.ExpressionVisitors.MemberBindings.MemberBinding;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors
@@ -95,7 +95,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors
                 return memberInitExpression.Bindings
                     .Where(binding => binding is MemberAssignment)
                     .Select(assignment =>
-                        MemberBinding.Bind(assignment.Member, ((MemberAssignment) assignment).Expression));
+                        MemberBinding.Bind(assignment.Member, ((MemberAssignment)assignment).Expression));
 
             var newExpression = expression as NewExpression;
             if (newExpression != null && newExpression.Members != null)

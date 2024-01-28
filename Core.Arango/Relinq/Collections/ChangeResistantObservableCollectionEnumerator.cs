@@ -15,12 +15,12 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Remotion.Utilities;
 
 #if !NET_3_5
 #endif

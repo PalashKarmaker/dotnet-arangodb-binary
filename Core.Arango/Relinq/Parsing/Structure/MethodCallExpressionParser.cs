@@ -15,14 +15,14 @@
 // under the License.
 // 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Parsing.ExpressionVisitors;
 using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure
 {
@@ -89,10 +89,10 @@ namespace Core.Arango.Relinq.Parsing.Structure
             // We only support the former three, to support the latter, PartialEvaluatingExpressionTreeVisitor must be used.
 
             if (expression.NodeType == ExpressionType.Quote)
-                return ((UnaryExpression) expression).Operand;
+                return ((UnaryExpression)expression).Operand;
             if (expression.NodeType == ExpressionType.Constant &&
-                ((ConstantExpression) expression).Value is LambdaExpression)
-                return (Expression) ((ConstantExpression) expression).Value;
+                ((ConstantExpression)expression).Value is LambdaExpression)
+                return (Expression)((ConstantExpression)expression).Value;
             return expression;
         }
 

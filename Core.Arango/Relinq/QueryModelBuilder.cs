@@ -15,11 +15,11 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Clauses;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Core.Arango.Relinq.Clauses;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq
 {

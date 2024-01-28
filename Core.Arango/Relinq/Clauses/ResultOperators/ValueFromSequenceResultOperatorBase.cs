@@ -15,10 +15,10 @@
 // under the License.
 // 
 
-using System.Reflection;
 using Core.Arango.Relinq.Clauses.StreamedData;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System.Reflection;
 
 namespace Core.Arango.Relinq.Clauses.ResultOperators
 {
@@ -30,7 +30,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
     {
         private static readonly MethodInfo s_executeMethod =
             typeof(ValueFromSequenceResultOperatorBase).GetRuntimeMethodChecked("ExecuteInMemory",
-                new[] {typeof(StreamedSequence)});
+                new[] { typeof(StreamedSequence) });
 
         public abstract StreamedValue ExecuteInMemory<T>(StreamedSequence sequence);
 
@@ -39,7 +39,7 @@ namespace Core.Arango.Relinq.Clauses.ResultOperators
             var sequenceInput = ArgumentUtility.CheckNotNullAndType<StreamedSequence>("input", input);
 
             var executeMethod = s_executeMethod.MakeGenericMethod(sequenceInput.DataInfo.ResultItemType);
-            return (StreamedValue) InvokeExecuteMethod(executeMethod, sequenceInput);
+            return (StreamedValue)InvokeExecuteMethod(executeMethod, sequenceInput);
         }
     }
 }

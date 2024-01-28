@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core.Arango.Relinq;
+using Core.Arango.Relinq.Clauses;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq;
-using Core.Arango.Relinq.Clauses;
 
 namespace Core.Arango.Linq.Query.Clause
 {
@@ -113,7 +113,7 @@ namespace Core.Arango.Linq.Query.Clause
             }
 
             var itemAsConstantExpression = expression as ConstantExpression;
-            if (itemAsConstantExpression != null) return (T) itemAsConstantExpression.Value;
+            if (itemAsConstantExpression != null) return (T)itemAsConstantExpression.Value;
 
             {
                 var message = string.Format(

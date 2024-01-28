@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Core.Arango.Linq;
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Linq;
-using Core.Arango.Tests.Core;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -27,7 +24,7 @@ namespace Core.Arango.Tests
         {
             var q = Arango.Query<Project>("test").Where(x => String.Concat(x.Name, " 10") == "Project A 10");
             var p = await q.FirstOrDefaultAsync();
-            
+
             Assert.Equal("Project A", p.Name);
             //_output.WriteLine(q.ToAql().aql);
         }
@@ -162,7 +159,7 @@ namespace Core.Arango.Tests
         {
             var q = Arango.Query<Project>("test").Where(x => x.Name.IndexOf("A") == "Project A".IndexOf("A"));
             var p = await q.FirstOrDefaultAsync();
-            
+
             Assert.Equal("Project A", p.Name);
             //_output.WriteLine(q.ToAql().aql);
         }

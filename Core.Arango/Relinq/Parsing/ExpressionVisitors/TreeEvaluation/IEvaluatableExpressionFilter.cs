@@ -15,8 +15,8 @@
 // under the License.
 // 
 
-using System.Linq.Expressions;
 using JetBrains.Annotations;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors.TreeEvaluation
 {

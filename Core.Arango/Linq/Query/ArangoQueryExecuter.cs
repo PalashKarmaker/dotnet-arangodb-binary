@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Core.Arango.Linq.Interface;
+﻿using Core.Arango.Linq.Interface;
 using Core.Arango.Relinq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Arango.Linq.Query
 {

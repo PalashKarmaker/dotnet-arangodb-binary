@@ -15,8 +15,8 @@
 // under the License.
 // 
 
-using System;
 using Remotion.Utilities;
+using System;
 
 namespace Core.Arango.Relinq.Clauses.StreamedData
 {
@@ -72,7 +72,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
         {
             try
             {
-                return (T) Value;
+                return (T)Value;
             }
             catch (InvalidCastException ex)
             {

@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using JetBrains.Annotations;
 using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Remotion.Utilities

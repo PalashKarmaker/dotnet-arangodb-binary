@@ -15,14 +15,14 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Parsing.ExpressionVisitors;
+using Core.Arango.Relinq.Utilities;
+using Remotion.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Parsing.ExpressionVisitors;
-using Core.Arango.Relinq.Utilities;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 {
@@ -111,14 +111,14 @@ namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
                 simulatedGroupByCallWithoutResultSelector = Expression.Call(
                     typeof(Enumerable),
                     "GroupBy",
-                    new[] {sourceItemType, keySelector.Body.Type},
+                    new[] { sourceItemType, keySelector.Body.Type },
                     parseInfo.ParsedExpression.Arguments[0],
                     keySelector);
             else
                 simulatedGroupByCallWithoutResultSelector = Expression.Call(
                     typeof(Enumerable),
                     "GroupBy",
-                    new[] {sourceItemType, keySelector.Body.Type, optionalElementSelector.Body.Type},
+                    new[] { sourceItemType, keySelector.Body.Type, optionalElementSelector.Body.Type },
                     parseInfo.ParsedExpression.Arguments[0],
                     keySelector,
                     optionalElementSelector);

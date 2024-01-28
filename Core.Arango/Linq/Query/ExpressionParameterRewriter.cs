@@ -28,7 +28,7 @@ namespace Core.Arango.Linq.Query
             unchangedParams.RemoveAt(index);
 
             var newExpression = new ExpressionParameterRewriterVisitor(param, unchangedParams).Visit(exp);
-            return (Expression<Func<T1, T2, T3>>) newExpression;
+            return (Expression<Func<T1, T2, T3>>)newExpression;
         }
 
         private class ExpressionParameterRewriterVisitor : ExpressionVisitor

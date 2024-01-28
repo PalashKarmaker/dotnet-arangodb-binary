@@ -1,9 +1,9 @@
+using Core.Arango.Protocol;
+using Core.Arango.Tests.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
-using Core.Arango.Tests.Core;
 using Xunit;
 
 namespace Core.Arango.Tests
@@ -181,7 +181,7 @@ namespace Core.Arango.Tests
 
             Assert.Equal(expectedNames.Count, list.Count);
 
-            foreach (var example in expectedNames.Select(name => new ArangoFunctionDefinition {Name = name}))
+            foreach (var example in expectedNames.Select(name => new ArangoFunctionDefinition { Name = name }))
                 Assert.Contains(example, list, _functionsComparer);
         }
 

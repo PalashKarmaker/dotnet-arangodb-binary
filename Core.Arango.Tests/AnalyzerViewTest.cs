@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Core.Arango.Protocol;
 using Core.Arango.Tests.Core;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Core.Arango.Tests
@@ -26,7 +26,7 @@ namespace Core.Arango.Tests
                     Stopwords = new List<string>(),
                     Stemming = false
                 },
-                Features = new List<string> {"position", "norm", "frequency"}
+                Features = new List<string> { "position", "norm", "frequency" }
             });
 
             await Arango.Collection.CreateAsync("test", "collection", ArangoCollectionType.Document);
@@ -42,7 +42,7 @@ namespace Core.Arango.Tests
                         {
                             ["Name"] = new()
                             {
-                                Analyzers = new List<string> {"text_de_nostem"}
+                                Analyzers = new List<string> { "text_de_nostem" }
                             }
                         }
                     }

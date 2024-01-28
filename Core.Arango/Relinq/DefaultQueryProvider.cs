@@ -15,12 +15,12 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Parsing.Structure;
+using Remotion.Utilities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Parsing.Structure;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq
 {
@@ -103,7 +103,7 @@ namespace Core.Arango.Relinq
         /// <returns>An <see cref="IQueryable{T}" /> that represents the query defined by <paramref name="expression" />.</returns>
         public override IQueryable<T> CreateQuery<T>(Expression expression)
         {
-            return (IQueryable<T>) Activator.CreateInstance(QueryableType.MakeGenericType(typeof(T)), this, expression);
+            return (IQueryable<T>)Activator.CreateInstance(QueryableType.MakeGenericType(typeof(T)), this, expression);
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using Core.Arango.Protocol;
+﻿using Core.Arango.Protocol;
 using Core.Arango.Serialization;
 using Core.Arango.Transport;
+using System;
+using System.Collections.Generic;
 
 namespace Core.Arango
 {

@@ -1,8 +1,8 @@
-using System;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Utilities;
 using Remotion.Utilities;
+using System;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure.IntermediateModel
 {

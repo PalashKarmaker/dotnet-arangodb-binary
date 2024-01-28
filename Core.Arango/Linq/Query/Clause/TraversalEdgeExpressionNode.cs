@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Core.Arango.Linq.Collection;
+﻿using Core.Arango.Linq.Collection;
 using Core.Arango.Linq.Data;
 using Core.Arango.Relinq;
 using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Arango.Linq.Query.Clause
 {

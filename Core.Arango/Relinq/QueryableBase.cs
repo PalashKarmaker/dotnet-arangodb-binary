@@ -15,13 +15,13 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Parsing.Structure;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Arango.Relinq.Parsing.Structure;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq
 {

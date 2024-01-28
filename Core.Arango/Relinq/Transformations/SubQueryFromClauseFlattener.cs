@@ -15,15 +15,15 @@
 // under the License.
 // 
 
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Core.Arango.Relinq.Clauses;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Clauses.ExpressionVisitors;
 using Core.Arango.Relinq.Clauses.ResultOperators;
 using Core.Arango.Relinq.Parsing.Structure;
 using Remotion.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 #if !NET_3_5
 #endif

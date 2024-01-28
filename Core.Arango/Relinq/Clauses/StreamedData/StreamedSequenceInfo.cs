@@ -15,14 +15,14 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Utilities;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Utilities;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.StreamedData
 {
@@ -35,7 +35,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
     {
         private static readonly MethodInfo s_executeMethod =
             typeof(StreamedSequenceInfo).GetRuntimeMethodChecked("ExecuteCollectionQueryModel",
-                new[] {typeof(QueryModel), typeof(IQueryExecutor)});
+                new[] { typeof(QueryModel), typeof(IQueryExecutor) });
 
         public StreamedSequenceInfo(Type dataType, Expression itemExpression)
         {
@@ -139,7 +139,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
 
             // wrap executeMethod into a delegate instead of calling Invoke in order to allow for exceptions that are bubbled up correctly
             var func =
-                (Func<QueryModel, IQueryExecutor, IEnumerable>) executeMethod.CreateDelegate(
+                (Func<QueryModel, IQueryExecutor, IEnumerable>)executeMethod.CreateDelegate(
                     typeof(Func<QueryModel, IQueryExecutor, IEnumerable>), this);
             var result = func(queryModel, executor).AsQueryable();
 
@@ -154,7 +154,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
             if (GetType() != obj.GetType())
                 return false;
 
-            var other = (StreamedSequenceInfo) obj;
+            var other = (StreamedSequenceInfo)obj;
             return DataType.Equals(other.DataType) && ItemExpression.Equals(other.ItemExpression);
         }
 

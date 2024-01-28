@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Core.Arango.Linq.Data;
+using Core.Arango.Linq.Interface;
+using Core.Arango.Relinq;
+using Core.Arango.Relinq.Parsing.Structure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Linq.Data;
-using Core.Arango.Linq.Interface;
-using Core.Arango.Relinq;
-using Core.Arango.Relinq.Parsing.Structure;
 
 namespace Core.Arango.Linq.Query
 {

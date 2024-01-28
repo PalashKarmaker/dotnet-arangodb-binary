@@ -15,9 +15,9 @@
 // under the License.
 // 
 
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Parsing.ExpressionVisitors.Transformation;
 using Core.Arango.Relinq.Parsing.Structure.ExpressionTreeProcessors;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.Structure
 {

@@ -15,12 +15,12 @@
 // under the License.
 // 
 
-using System;
-using System.Linq;
-using System.Linq.Expressions;
 using Core.Arango.Relinq.Clauses.Expressions;
 using Core.Arango.Relinq.Parsing.ExpressionVisitors.TreeEvaluation;
 using Remotion.Utilities;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Core.Arango.Relinq.Parsing.ExpressionVisitors
 {
@@ -118,7 +118,7 @@ namespace Core.Arango.Relinq.Parsing.ExpressionVisitors
 
             if (subtree.NodeType == ExpressionType.Constant)
             {
-                var constantExpression = (ConstantExpression) subtree;
+                var constantExpression = (ConstantExpression)subtree;
                 var valueAsIQueryable = constantExpression.Value as IQueryable;
                 if (valueAsIQueryable != null && valueAsIQueryable.Expression != constantExpression)
                     return valueAsIQueryable.Expression;

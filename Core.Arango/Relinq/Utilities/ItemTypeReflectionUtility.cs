@@ -15,13 +15,13 @@
 // under the License.
 // 
 
+using JetBrains.Annotations;
+using Remotion.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Utilities
 {

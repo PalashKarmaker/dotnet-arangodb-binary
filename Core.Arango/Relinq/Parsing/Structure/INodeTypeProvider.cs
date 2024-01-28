@@ -15,10 +15,10 @@
 // under the License.
 // 
 
+using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Arango.Relinq.Parsing.Structure.IntermediateModel;
 
 namespace Core.Arango.Relinq.Parsing.Structure
 {

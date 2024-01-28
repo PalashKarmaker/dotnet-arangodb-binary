@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Core.Arango.Linq.Query;
 using System.Linq;
-using Core.Arango.Linq.Query;
 
 namespace Core.Arango.Linq
 {

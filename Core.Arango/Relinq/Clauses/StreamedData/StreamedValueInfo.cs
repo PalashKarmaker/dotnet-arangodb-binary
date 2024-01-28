@@ -15,9 +15,9 @@
 // under the License.
 // 
 
+using Remotion.Utilities;
 using System;
 using System.Reflection;
-using Remotion.Utilities;
 
 namespace Core.Arango.Relinq.Clauses.StreamedData
 {
@@ -66,7 +66,7 @@ namespace Core.Arango.Relinq.Clauses.StreamedData
             if (GetType() != obj.GetType())
                 return false;
 
-            var other = (StreamedValueInfo) obj;
+            var other = (StreamedValueInfo)obj;
             return DataType.Equals(other.DataType);
         }
 

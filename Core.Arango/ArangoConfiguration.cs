@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
-using Core.Arango.Linq.Attributes;
+﻿using Core.Arango.Linq.Attributes;
 using Core.Arango.Protocol;
 using Core.Arango.Serialization;
 using Core.Arango.Serialization.Newtonsoft;
 using Core.Arango.Transport;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
+using System.Reflection;
 
 namespace Core.Arango;
 
@@ -56,7 +55,7 @@ public class ArangoConfiguration : IArangoConfiguration
         };
         ResolveGroupBy = s => s;
     }
-    
+
     /// <inheritdoc />
     public string ConnectionString
     {
@@ -64,7 +63,7 @@ public class ArangoConfiguration : IArangoConfiguration
         set
         {
             _connectionString = value;
-            var builder = new DbConnectionStringBuilder {ConnectionString = value};
+            var builder = new DbConnectionStringBuilder { ConnectionString = value };
             builder.TryGetValue("Server", out var s);
             builder.TryGetValue("Realm", out var r);
             builder.TryGetValue("User ID", out var uid);
@@ -125,7 +124,7 @@ public class ArangoConfiguration : IArangoConfiguration
     /// <inheritdoc />
     public IReadOnlyList<string> Endpoints { get; set; }
     /// <inheritdoc />
-    public Func<Type, string,  string> ResolveProperty { get; set; }
+    public Func<Type, string, string> ResolveProperty { get; set; }
     /// <inheritdoc />
     public Func<Type, string> ResolveCollection { get; set; }
     /// <inheritdoc />

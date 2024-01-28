@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using Core.Arango.Protocol;
+using System.Threading;
 using System.Threading.Tasks;
-using Core.Arango.Protocol;
 
 namespace Core.Arango.Modules
 {

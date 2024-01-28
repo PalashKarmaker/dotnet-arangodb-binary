@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Core.Arango.Protocol
 {
@@ -27,7 +27,7 @@ namespace Core.Arango.Protocol
         /// </summary>
         [JsonPropertyName("id")]
         [JsonProperty(PropertyName = "id")]
-        public string Id{ get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 

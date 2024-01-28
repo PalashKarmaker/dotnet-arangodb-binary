@@ -15,8 +15,8 @@
 // under the License.
 // 
 
-using System.Collections.Generic;
 using Remotion.Utilities;
+using System.Collections.Generic;
 
 namespace Core.Arango.Relinq
 {
