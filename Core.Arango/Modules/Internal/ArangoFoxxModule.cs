@@ -44,8 +44,7 @@ namespace Core.Arango.Modules.Internal
 
             if (legacy.HasValue)
                 parameter.Add("legacy", legacy.Value.ToString().ToLowerInvariant());
-
-            var res = await Context.Configuration.Transport.SendContentAsync(HttpMethod.Post,
+            _ = await Context.Configuration.Transport.SendContentAsync(HttpMethod.Post,
                 ApiPath(database, "foxx", parameter), PackService(service),
                 cancellationToken: cancellationToken);
 
@@ -70,8 +69,7 @@ namespace Core.Arango.Modules.Internal
 
             if (force.HasValue)
                 parameter.Add("force", force.Value.ToString().ToLowerInvariant());
-
-            var res = await Context.Configuration.Transport.SendContentAsync(HttpMethod.Put,
+            _ = await Context.Configuration.Transport.SendContentAsync(HttpMethod.Put,
                 ApiPath(database, "foxx/service", parameter), PackService(service),
                 cancellationToken: cancellationToken);
 
@@ -96,8 +94,7 @@ namespace Core.Arango.Modules.Internal
 
             if (force.HasValue)
                 parameter.Add("force", force.Value.ToString().ToLowerInvariant());
-
-            var res = await Context.Configuration.Transport.SendContentAsync(PolyfillHelper.Patch,
+            _ = await Context.Configuration.Transport.SendContentAsync(PolyfillHelper.Patch,
                 ApiPath(database, "foxx/service", parameter), PackService(service),
                 cancellationToken: cancellationToken);
 
@@ -256,7 +253,7 @@ namespace Core.Arango.Modules.Internal
                 ApiPath(database, "foxx/download", parameter),
                 cancellationToken: cancellationToken);
 
-            return await res.ReadAsStreamAsync();
+            return await res.ReadAsStreamAsync(cancellationToken);
         }
 
         public async Task<T> RunServiceScriptAsync<T>(ArangoHandle database, string mount, string name,
@@ -270,18 +267,14 @@ namespace Core.Arango.Modules.Internal
                 cancellationToken: cancellationToken);
         }
 
-        private MultipartFormDataContent PackService(ArangoFoxxSource service)
+        private static MultipartFormDataContent PackService(ArangoFoxxSource service)
         {
             var content = new MultipartFormDataContent();
 
             if (service.JavaScript != null)
-            {
                 content.Add(new StringContent(service.JavaScript, Encoding.UTF8, "application/javascript"), "source");
-            }
             else if (service.Url != null)
-            {
                 content.Add(new StringContent(service.Url), "source");
-            }
             else if (service.ZipArchive != null)
             {
                 var stream = new StreamContent(service.ZipArchive);
@@ -289,10 +282,7 @@ namespace Core.Arango.Modules.Internal
                 content.Add(stream, "source");
             }
             else
-            {
                 throw new ArangoException("Invalid service description");
-            }
-
             return content;
         }
     }

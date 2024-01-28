@@ -1,9 +1,8 @@
-﻿namespace Core.Arango.Protocol
+﻿namespace Core.Arango.Protocol;
+
+/// <summary>
+///     Something to deserialize to when no response needed
+/// </summary>
+public class ArangoVoid
 {
-    /// <summary>
-    ///     Something to deserialize to when no response needed
-    /// </summary>
-    public class ArangoVoid
-    {
-    }
 }

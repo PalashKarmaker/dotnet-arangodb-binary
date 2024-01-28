@@ -26,11 +26,9 @@ namespace Core.Arango.Tests
             });
 
             Guid? nullParam = null;
-
-            var res = await Arango.Query.SingleOrDefaultAsync<Entity>("test", "test",
+            _ = await Arango.Query.SingleOrDefaultAsync<Entity>("test", "test",
                 $"x.Value == {nullParam}");
-
-            var res2 = await Arango.Query.SingleOrDefaultAsync<Entity>("test", "test",
+            _ = await Arango.Query.SingleOrDefaultAsync<Entity>("test", "test",
                 $"x.Value == {null}");
         }
 

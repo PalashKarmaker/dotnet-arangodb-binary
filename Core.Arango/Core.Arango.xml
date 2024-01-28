@@ -10361,17 +10361,20 @@
             <summary>
                 Arango HTTP 1.1/2.0 Transport Implementation
             </summary>
-            <remarks>
-                Arango HTTP 1.1/2.0 Transport Implementation
-            </remarks>
         </member>
         <member name="M:Core.Arango.Transport.ArangoHttpTransport.#ctor(Core.Arango.IArangoConfiguration)">
             <summary>
                 Arango HTTP 1.1/2.0 Transport Implementation
             </summary>
-            <remarks>
-                Arango HTTP 1.1/2.0 Transport Implementation
-            </remarks>
+        </member>
+        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync(System.Type,System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendContentAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Core.Arango.Transport.ArangoHttpTransport.SetBasicAuth(System.Net.Http.HttpClient)">
             <summary>
@@ -10379,15 +10382,6 @@
             used in requests to ArangoDB.
             </summary>
             <param name="client"></param>
-        </member>
-        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendContentAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync(System.Type,System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
-            <inheritdoc />
         </member>
         <member name="T:Core.Arango.Transport.IArangoTransport">
             <summary>

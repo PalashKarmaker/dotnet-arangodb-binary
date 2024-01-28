@@ -56,16 +56,10 @@ namespace Core.Arango.Modules.Internal
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected string ApiPath(string path)
-        {
-            return $"/_api/{path}";
-        }
+        protected static string ApiPath(string path) => $"/_api/{path}";
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected string UrlEncode(string value)
-        {
-            return UrlEncoder.Default.Encode(value);
-        }
+        protected static string UrlEncode(string value) => UrlEncoder.Default.Encode(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Task<T> SendAsync<T>(ArangoHandle handle, HttpMethod m,
@@ -91,14 +85,11 @@ namespace Core.Arango.Modules.Internal
                 headers, cancellationToken);
         }
 
-        public string AddQueryString(string uri,
-            IEnumerable<KeyValuePair<string, string>> queryString)
+        public static string AddQueryString(string uri, IEnumerable<KeyValuePair<string, string>> queryString)
         {
-            if (uri == null)
-                throw new ArgumentNullException(nameof(uri));
+            ArgumentNullException.ThrowIfNull(uri);
 
-            if (queryString == null)
-                throw new ArgumentNullException(nameof(queryString));
+            ArgumentNullException.ThrowIfNull(queryString);
 
             var anchorIndex = uri.IndexOf('#');
             var uriToBeAppended = uri;
@@ -106,12 +97,11 @@ namespace Core.Arango.Modules.Internal
 
             if (anchorIndex != -1)
             {
-                anchorText = uri.Substring(anchorIndex);
-                uriToBeAppended = uri.Substring(0, anchorIndex);
+                anchorText = uri[anchorIndex..];
+                uriToBeAppended = uri[..anchorIndex];
             }
 
-            var queryIndex = uriToBeAppended.IndexOf('?');
-            var hasQuery = queryIndex != -1;
+            var hasQuery = uriToBeAppended.Contains('?');
 
             var sb = new StringBuilder();
             sb.Append(uriToBeAppended);
@@ -128,7 +118,7 @@ namespace Core.Arango.Modules.Internal
             return sb.ToString();
         }
 
-        public string Parameterize(FormattableString query, out IDictionary<string, object> parameter)
+        public static string Parameterize(FormattableString query, out IDictionary<string, object> parameter)
         {
             var formatter = new AqlQueryFormatter();
             var queryExp = query.ToString(formatter);
@@ -145,8 +135,7 @@ namespace Core.Arango.Modules.Internal
 
         protected class QueryFormattingContext
         {
-            private readonly IDictionary<(object value, QueryParameterType type), string> _paramsMap =
-                new Dictionary<(object obj, QueryParameterType type), string>();
+            private readonly Dictionary<(object value, QueryParameterType type), string> _paramsMap = [];
 
             private int _counter;
 
@@ -162,17 +151,12 @@ namespace Core.Arango.Modules.Internal
             {
                 if (!_paramsMap.TryGetValue((value, type), out var paramName))
                 {
-                    switch (type)
+                    paramName = type switch
                     {
-                        case QueryParameterType.Regular:
-                            paramName = $"@P{++_counter}";
-                            break;
-                        case QueryParameterType.Collection:
-                            paramName = $"@@C{++_counter}";
-                            break;
-                        default: throw new ArgumentException($"Unsupported parameter type: {type:G}", nameof(type));
-                    }
-
+                        QueryParameterType.Regular => $"@P{++_counter}",
+                        QueryParameterType.Collection => $"@@C{++_counter}",
+                        _ => throw new ArgumentException($"Unsupported parameter type: {type:G}", nameof(type)),
+                    };
                     _paramsMap.Add((value, type), paramName);
                 }
 

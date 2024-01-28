@@ -36,22 +36,16 @@ public class ArangoConfiguration : IArangoConfiguration
         };
         ResolveProperty = (type, name) =>
         {
-            switch (name)
+            return name switch
             {
-                case "Key":
-                    return "_key";
-                case "Id":
-                    return "_id";
-                case "Revision":
-                    return "_rev";
-                case "From":
-                    return "_from";
-                case "To":
-                    return "_to";
-            }
-
-            // TODO: camelCase
-            return name;
+                "Key" => "_key",
+                "Id" => "_id",
+                "Revision" => "_rev",
+                "From" => "_from",
+                "To" => "_to",
+                // TODO: camelCase
+                _ => name,
+            };
         };
         ResolveGroupBy = s => s;
     }
@@ -70,7 +64,7 @@ public class ArangoConfiguration : IArangoConfiguration
             builder.TryGetValue("User", out var u);
             builder.TryGetValue("Password", out var p);
             builder.TryGetValue("AllowDirtyRead", out var dr);
-            builder.TryGetValue("Endpoints", out var eps);
+            builder.TryGetValue("Endpoints", out _);
 
             var server = s as string;
             var user = u as string ?? uid as string;
