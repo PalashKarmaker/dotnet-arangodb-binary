@@ -125,8 +125,7 @@ public class ArangoJsonSerializer : IArangoSerializer
             IgnoreNullValues = false
 #endif
         };
-
-        
+        _options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
     }
 
     /// <inheritdoc />
