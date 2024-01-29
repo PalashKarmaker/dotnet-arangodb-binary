@@ -17,8 +17,19 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    private readonly string _auth = SetAuth(configuration);
     private static HttpClient DefaultHttpClient => new();
+    string _auth = "";
+    /// <inheritdoc />
+    protected string Auth
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(_auth) && !string.IsNullOrWhiteSpace(configuration.User) && !string.IsNullOrWhiteSpace(configuration.Password))
+                _auth = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{configuration.User}:{configuration.Password}"));
+            return _auth;
+        }
+    }
+
     /// <inheritdoc />
     public async Task<T> SendAsync<T>(HttpMethod m, string url, object body = null,
         string transaction = null, bool throwOnError = true, bool auth = true,
@@ -126,21 +137,15 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
     /// used in requests to ArangoDB.
     /// </summary>
     /// <param name="client"></param>
-    protected void SetBasicAuth(HttpClient client) => client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", _auth);
+    protected void SetBasicAuth(HttpClient client) => client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Auth);
 
-    static string SetAuth(IArangoConfiguration configuration)
-    {
-        if (string.IsNullOrWhiteSpace(configuration.User) || string.IsNullOrWhiteSpace(configuration.Password))
-            return string.Empty;
-        return Convert.ToBase64String(Encoding.ASCII.GetBytes($"{configuration.User}:{configuration.Password}"));
-    }
     private void ApplyHeaders(string transaction, bool auth, HttpRequestMessage msg,
         IDictionary<string, string> headers)
     {
         msg.Headers.Add(HttpRequestHeader.KeepAlive.ToString(), "true");
 
-        if (auth && !string.IsNullOrWhiteSpace(_auth))
-            msg.Headers.Add(HttpRequestHeader.Authorization.ToString(), _auth);
+        /*if (auth && !string.IsNullOrWhiteSpace(_auth))
+            msg.Headers.Add(HttpRequestHeader.Authorization.ToString(), _auth);*/
 
         if (transaction != null)
             msg.Headers.Add("x-arango-trx-id", transaction);
