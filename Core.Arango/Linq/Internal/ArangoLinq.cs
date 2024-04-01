@@ -4,39 +4,20 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Core.Arango.Linq
+namespace Core.Arango.Linq;
+
+internal class ArangoLinq(IArangoContext context, ArangoHandle handle) : IArangoLinq
 {
-    internal class ArangoLinq : IArangoLinq
-    {
-        private readonly IArangoContext _context;
-        private readonly ArangoHandle _handle;
+    private readonly IArangoContext _context = context;
+    private readonly ArangoHandle _handle = handle;
 
-        public ArangoLinq(IArangoContext context, ArangoHandle handle)
-        {
-            _context = context;
-            _handle = handle;
-        }
+    public string ResolvePropertyName(Type t, string s) => _context.Configuration.ResolveProperty(t, s);
 
-        public string ResolvePropertyName(Type t, string s)
-        {
-            return _context.Configuration.ResolveProperty(t, s);
-        }
+    public string ResolveCollectionName(Type t) => _context.Configuration.ResolveCollection(t);
 
-        public string ResolveCollectionName(Type t)
-        {
-            return _context.Configuration.ResolveCollection(t);
-        }
+    public Func<string, string> TranslateGroupByIntoName => _context.Configuration.ResolveGroupBy;
 
-        public Func<string, string> TranslateGroupByIntoName => _context.Configuration.ResolveGroupBy;
+    public IAsyncEnumerable<T> StreamAsync<T>(string query, IDictionary<string, object> bindVars, CancellationToken cancellationToken = default) => _context.Query.ExecuteStreamAsync<T>(_handle, query, bindVars, cancellationToken: cancellationToken);
 
-        public IAsyncEnumerable<T> StreamAsync<T>(string query, IDictionary<string, object> bindVars, CancellationToken cancellationToken = default)
-        {
-            return _context.Query.ExecuteStreamAsync<T>(_handle, query, bindVars, cancellationToken: cancellationToken);
-        }
-
-        public async Task<ArangoList<T>> ExecuteAsync<T>(string query, IDictionary<string, object> bindVars, CancellationToken cancellationToken = default)
-        {
-            return await _context.Query.ExecuteAsync<T>(_handle, query, bindVars, cancellationToken: cancellationToken).ConfigureAwait(false);
-        }
-    }
+    public async Task<ArangoList<T>> ExecuteAsync<T>(string query, IDictionary<string, object> bindVars, CancellationToken cancellationToken = default) => await _context.Query.ExecuteAsync<T>(_handle, query, bindVars, cancellationToken: cancellationToken).ConfigureAwait(false);
 }

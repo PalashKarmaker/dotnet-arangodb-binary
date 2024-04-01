@@ -17,7 +17,7 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    private static HttpClient DefaultHttpClient => new();
+    private static readonly HttpClient DefaultHttpClient = new();
     string _auth = "";
     /// <inheritdoc />
     protected string Auth
@@ -46,7 +46,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         }
         else
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        using var httpClient = DefaultHttpClient;
+        var httpClient = DefaultHttpClient;
         SetBasicAuth(httpClient);
         using var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
 
@@ -92,7 +92,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         }
         else
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        using var httpClient = DefaultHttpClient;
+        var httpClient = DefaultHttpClient;
         SetBasicAuth(httpClient);
         using var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
 
@@ -118,7 +118,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         using var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
         req.Content = body;
-        using var httpClient = DefaultHttpClient;
+        var httpClient = DefaultHttpClient;
         SetBasicAuth(httpClient);
         using var res = await httpClient.SendAsync(req, cancellationToken);
 

@@ -10367,6 +10367,9 @@
                 Arango HTTP 1.1/2.0 Transport Implementation
             </summary>
         </member>
+        <member name="P:Core.Arango.Transport.ArangoHttpTransport.Auth">
+            <inheritdoc />
+        </member>
         <member name="M:Core.Arango.Transport.ArangoHttpTransport.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String,System.Boolean,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
