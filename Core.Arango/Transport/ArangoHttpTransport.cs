@@ -19,6 +19,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
 {
     private static readonly HttpClient DefaultHttpClient = new();
     string _auth = "";
+    DateTime _authValidUntil = DateTime.MinValue;
     /// <inheritdoc />
     protected string Auth
     {
@@ -29,13 +30,35 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
             return _auth;
         }
     }
+    private async Task Authenticate(bool auth, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(configuration.User))
+            return;
 
+        if (auth && (_auth == null || _authValidUntil < DateTime.UtcNow))
+        {
+            var authResponse = await SendAsync<AuthResponse>(HttpMethod.Post,
+                "/_open/auth",
+                new AuthRequest
+                {
+                    Username = configuration.User,
+                    Password = configuration.Password ?? string.Empty
+                }, auth: false, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+            var jwt = authResponse.Jwt;
+            var token = new JwtSecurityToken(jwt.Replace("=", ""));
+            _auth = $"Bearer {jwt}";
+            _authValidUntil = token.ValidTo.AddMinutes(-5);
+        }
+    }
     /// <inheritdoc />
     public async Task<T> SendAsync<T>(HttpMethod m, string url, object body = null,
         string transaction = null, bool throwOnError = true, bool auth = true,
         IDictionary<string, string> headers = null,
         CancellationToken cancellationToken = default)
     {
+        await Authenticate(auth, cancellationToken).ConfigureAwait(false);
+
         using var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
 
