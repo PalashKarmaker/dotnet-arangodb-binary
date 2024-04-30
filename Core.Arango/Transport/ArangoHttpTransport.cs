@@ -170,8 +170,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
     {
         msg.Headers.Add(HttpRequestHeader.KeepAlive.ToString(), "true");
 
-        /*if (auth && !string.IsNullOrWhiteSpace(_auth))
-            msg.Headers.Add(HttpRequestHeader.Authorization.ToString(), _auth);*/
+        if (auth && !string.IsNullOrWhiteSpace(_auth))
+            msg.Headers.Add(HttpRequestHeader.Authorization.ToString(), _auth);
 
         if (transaction != null)
             msg.Headers.Add("x-arango-trx-id", transaction);
