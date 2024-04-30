@@ -108,6 +108,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         IDictionary<string, string> headers = null,
         CancellationToken cancellationToken = default)
     {
+        await Authenticate(auth, cancellationToken).ConfigureAwait(false);
+
         using var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
 
@@ -141,6 +143,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         bool throwOnError = true, bool auth = true, IDictionary<string, string> headers = null,
         CancellationToken cancellationToken = default)
     {
+        await Authenticate(auth, cancellationToken).ConfigureAwait(false);
+
         using var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
         req.Content = body;
