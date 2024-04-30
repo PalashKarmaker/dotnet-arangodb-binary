@@ -1,5 +1,6 @@
 ﻿using Core.Arango.Protocol;
 using Core.Arango.Protocol.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Core.Arango.Transport;
 
@@ -179,5 +182,23 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         if (headers != null)
             foreach (var header in headers)
                 msg.Headers.Add(header.Key, header.Value);
+    }
+
+    private class AuthRequest
+    {
+        [JsonProperty("username")]
+        [JsonPropertyName("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("password")]
+        [JsonPropertyName("password")]
+        public string Password { get; set; }
+    }
+
+    private class AuthResponse
+    {
+        [JsonProperty("jwt")]
+        [JsonPropertyName("jwt")]
+        public string Jwt { get; set; }
     }
 }
