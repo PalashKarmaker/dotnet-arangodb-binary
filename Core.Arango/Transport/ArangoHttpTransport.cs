@@ -3,6 +3,7 @@ using Core.Arango.Protocol.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,7 +12,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Core.Arango.Transport;
 
