@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
+using System.Net.Http;
 
 namespace Core.Arango;
 
@@ -111,7 +112,8 @@ public class ArangoConfiguration : IArangoConfiguration
 
     /// <inheritdoc />
     public Action<string, IDictionary<string, object>, ArangoQueryStatistic> QueryProfile { get; set; }
-
+    /// <inheritdoc />
+    public HttpClient HttpClient { get; set; }
     /// <inheritdoc />
     public bool AllowDirtyRead { get; set; }
 
