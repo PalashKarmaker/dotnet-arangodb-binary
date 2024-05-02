@@ -20,7 +20,8 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    private static readonly HttpClient DefaultHttpClient = new();
+    static readonly HttpClient DefaultHttpClient = new();
+    HttpClient Client => configuration.HttpClient ?? DefaultHttpClient;
     string _auth = "";
     DateTime _authValidUntil = DateTime.MinValue;
     /// <inheritdoc />
@@ -73,9 +74,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         }
         else
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        var httpClient = DefaultHttpClient;
-        SetBasicAuth(httpClient);
-        using var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
+        SetBasicAuth(Client);
+        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
 
         if (!res.IsSuccessStatusCode)
             if (throwOnError)
@@ -121,9 +121,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         }
         else
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        var httpClient = DefaultHttpClient;
-        SetBasicAuth(httpClient);
-        using var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
+        SetBasicAuth(Client);
+        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
 
         if (!res.IsSuccessStatusCode)
             if (throwOnError)
@@ -149,9 +148,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         using var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
         req.Content = body;
-        var httpClient = DefaultHttpClient;
-        SetBasicAuth(httpClient);
-        using var res = await httpClient.SendAsync(req, cancellationToken);
+        SetBasicAuth(Client);
+        using var res = await Client.SendAsync(req, cancellationToken);
 
         if (!res.IsSuccessStatusCode && throwOnError)
         {
