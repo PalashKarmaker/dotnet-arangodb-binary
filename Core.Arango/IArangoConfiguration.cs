@@ -3,6 +3,7 @@ using Core.Arango.Serialization;
 using Core.Arango.Transport;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace Core.Arango
 {
@@ -59,6 +60,10 @@ namespace Core.Arango
         /// </summary>
         Action<string, IDictionary<string, object>, ArangoQueryStatistic> QueryProfile { get; set; }
 
+        /// <summary>
+        ///     Override HttpClient
+        /// </summary>
+        HttpClient HttpClient { get; set; }
 
         /// <summary>
         ///     Enables read queries from followers
