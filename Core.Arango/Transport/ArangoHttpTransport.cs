@@ -73,6 +73,9 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         {
             using var req = new HttpRequestMessage(m, configuration.Server + url);
             ApplyHeaders(transaction, auth, req, headers);
+            //var json = ToJson(configuration, body);
+            //if (!string.IsNullOrEmpty(json))
+            //    req.Content = new StringContent(json, Encoding.UTF8, "application/json");
             var data = ToByteArray(configuration, body);
             if (data != null && data.Length > 0)
                 req.Content = new ByteArrayContent(data);
@@ -101,6 +104,12 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         if (!string.IsNullOrWhiteSpace(json))
             return Encoding.UTF8.GetBytes(json);
         return [];
+    }
+    private static string ToJson(IArangoConfiguration configuration, object body)
+    {
+        if (body == null)
+            return string.Empty;
+        return configuration.Serializer.Serialize(body);
     }
 
     private async Task<T> GetResponse<T>(IArangoSerializer serializer, HttpRequestMessage req, CancellationToken cancellationToken)
