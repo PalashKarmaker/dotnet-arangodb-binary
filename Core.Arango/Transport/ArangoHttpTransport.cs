@@ -1,5 +1,6 @@
 ﻿using Core.Arango.Protocol;
 using Core.Arango.Protocol.Internal;
+using Core.Arango.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,11 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    static readonly HttpClient DefaultHttpClient = new();
-    HttpClient Client => configuration.HttpClient ?? DefaultHttpClient;
-    string _auth = "";
-    DateTime _authValidUntil = DateTime.MinValue;
+    private static readonly HttpClient DefaultHttpClient = new();
+    private HttpClient Client => configuration.HttpClient ?? DefaultHttpClient;
+    private string _auth = "";
+    private DateTime _authValidUntil = DateTime.MinValue;
+
     /// <inheritdoc />
     protected string Auth
     {
@@ -34,6 +36,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
             return _auth;
         }
     }
+
     private async Task Authenticate(bool auth, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(configuration.User))
@@ -55,51 +58,69 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
             _authValidUntil = token.ValidTo.AddMinutes(-5);
         }
     }
+
     /// <inheritdoc />
     public async Task<T> SendAsync<T>(HttpMethod m, string url, object body = null,
         string transaction = null, bool throwOnError = true, bool auth = true,
         IDictionary<string, string> headers = null,
         CancellationToken cancellationToken = default)
     {
+        auth = false;
         if (auth)
             await Authenticate(auth, cancellationToken).ConfigureAwait(false);
 
-        using var req = new HttpRequestMessage(m, configuration.Server + url);
-        ApplyHeaders(transaction, auth, req, headers);
-
-        if (body != null)
+        do
         {
-            var json = configuration.Serializer.Serialize(body);
-            req.Content = new ByteArrayContent(Encoding.UTF8.GetBytes(json));
-        }
-        else
-            req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        SetBasicAuth(Client);
-        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
-
-        if (!res.IsSuccessStatusCode)
-            if (throwOnError)
-            {
-                var errorContent = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                var error = configuration.Serializer.Deserialize<ErrorResponse>(errorContent);
-                throw new ArangoException(errorContent, error.ErrorMessage,
-                    (HttpStatusCode)error.Code, (ArangoErrorCode)error.ErrorNum);
-            }
+            using var req = new HttpRequestMessage(m, configuration.Server + url);
+            ApplyHeaders(transaction, auth, req, headers);
+            var data = ToByteArray(configuration, body);
+            if (data != null && data.Length > 0)
+                req.Content = new ByteArrayContent(data);
             else
-                return default;
+                req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
+            SetBasicAuth(Client);
+            var (retryMax, retryCount) = (5, 0);
+            try
+            {
+                return await GetResponse<T>(configuration.Serializer, req, cancellationToken).ConfigureAwait(false);
+            }
+            catch (ArangoException exc)
+            {
+                if (++retryCount >= retryMax)
+                    throw;
+                await Task.Delay(500, cancellationToken).ConfigureAwait(false);
+            }
+        } while (true);
+    }
 
+    private static byte[] ToByteArray(IArangoConfiguration configuration, object body)
+    {
+        if (body == null)
+            return [];
+        var json = configuration.Serializer.Serialize(body);
+        if (!string.IsNullOrWhiteSpace(json))
+            return Encoding.UTF8.GetBytes(json);
+        return [];
+    }
+
+    private async Task<T> GetResponse<T>(IArangoSerializer serializer, HttpRequestMessage req, CancellationToken cancellationToken)
+    {
+        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
         var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-
+        if (!res.IsSuccessStatusCode)
+        {
+            var error = serializer.Deserialize<ErrorResponse>(content);
+            throw new ArangoException(content, error.ErrorMessage,
+                (HttpStatusCode)error.Code, (ArangoErrorCode)error.ErrorNum);
+        }
         if (res.Headers.Contains("X-Arango-Error-Codes"))
         {
             var errors = configuration.Serializer.Deserialize<IEnumerable<ErrorResponse>>(content)
                 .Select(error => new ArangoError(error.ErrorMessage, (ArangoErrorCode)error.ErrorNum));
-            throw new ArangoException(content, errors);
+            throw new ArangoException("HeaderError: " + content, errors);
         }
-
         if (content == "{}" || string.IsNullOrWhiteSpace(content))
             return default;
-
         return configuration.Serializer.Deserialize<T>(content);
     }
 
@@ -123,13 +144,12 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
         SetBasicAuth(Client);
         using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
+        var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
         if (!res.IsSuccessStatusCode)
             if (throwOnError)
-                throw new ArangoException(await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false));
+                throw new ArangoException(content);
             else return default;
-
-        var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
         if (content == "{}" || string.IsNullOrWhiteSpace(content))
             return default;
