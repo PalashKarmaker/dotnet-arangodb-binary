@@ -21,13 +21,12 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    private static readonly HttpClient DefaultHttpClient = new();
-    private HttpClient Client => configuration.HttpClient ?? DefaultHttpClient;
+    private HttpClient httpClient = configuration.HttpClient ?? new();
     private string _auth = "";
     private DateTime _authValidUntil = DateTime.MinValue;
 
     /// <inheritdoc />
-    protected string Auth
+    protected string BasicAuth
     {
         get
         {
@@ -71,7 +70,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
 
         do
         {
-            using var req = new HttpRequestMessage(m, configuration.Server + url);
+            var req = new HttpRequestMessage(m, configuration.Server + url);
             ApplyHeaders(transaction, auth, req, headers);
             //var json = ToJson(configuration, body);
             //if (!string.IsNullOrEmpty(json))
@@ -81,7 +80,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
                 req.Content = new ByteArrayContent(data);
             else
                 req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-            SetBasicAuth(Client);
+            SetBasicAuth(httpClient);
             var (retryMax, retryCount) = (5, 0);
             try
             {
@@ -114,7 +113,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
 
     private async Task<T> GetResponse<T>(IArangoSerializer serializer, HttpRequestMessage req, CancellationToken cancellationToken)
     {
-        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
+        var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
         var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (!res.IsSuccessStatusCode)
         {
@@ -141,7 +140,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
     {
         await Authenticate(auth, cancellationToken).ConfigureAwait(false);
 
-        using var req = new HttpRequestMessage(m, configuration.Server + url);
+        var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
 
         if (body != null)
@@ -151,8 +150,8 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
         }
         else
             req.Headers.Add(HttpRequestHeader.ContentLength.ToString(), "0");
-        SetBasicAuth(Client);
-        using var res = await Client.SendAsync(req, cancellationToken).ConfigureAwait(false);
+        SetBasicAuth(httpClient);
+        var res = await httpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
         var content = await res.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
         if (!res.IsSuccessStatusCode)
@@ -174,11 +173,11 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
     {
         await Authenticate(auth, cancellationToken).ConfigureAwait(false);
 
-        using var req = new HttpRequestMessage(m, configuration.Server + url);
+        var req = new HttpRequestMessage(m, configuration.Server + url);
         ApplyHeaders(transaction, auth, req, headers);
         req.Content = body;
-        SetBasicAuth(Client);
-        using var res = await Client.SendAsync(req, cancellationToken);
+        SetBasicAuth(httpClient);
+        var res = await httpClient.SendAsync(req, cancellationToken);
 
         if (!res.IsSuccessStatusCode && throwOnError)
         {
@@ -195,7 +194,7 @@ public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTr
     /// used in requests to ArangoDB.
     /// </summary>
     /// <param name="client"></param>
-    protected void SetBasicAuth(HttpClient client) => client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Auth);
+    protected void SetBasicAuth(HttpClient client) => client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", BasicAuth);
 
     private void ApplyHeaders(string transaction, bool auth, HttpRequestMessage msg,
         IDictionary<string, string> headers)
