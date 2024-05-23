@@ -21,7 +21,7 @@ namespace Core.Arango.Transport;
 /// </summary>
 public class ArangoHttpTransport(IArangoConfiguration configuration) : IArangoTransport
 {
-    private HttpClient httpClient = configuration.HttpClient ?? new();
+    private readonly HttpClient httpClient = configuration.HttpClient ?? new();
     private string _auth = "";
     private DateTime _authValidUntil = DateTime.MinValue;
 
